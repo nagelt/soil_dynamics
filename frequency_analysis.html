@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 
 
-<title>single_mass_oscillator</title>
+<title>frequency_analysis</title>
 
 <style type="text/css">
     /*!
@@ -13134,7 +13134,7 @@ Technische Universität Bergakademie Freiberg.</em></p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Einmassenschwinger,-Grundlagen">Einmassenschwinger, Grundlagen<a class="anchor-link" href="#Einmassenschwinger,-Grundlagen">&#182;</a></h1><p><img src="https://github.com/nagelt/soil_dynamics/raw/master/Images/oscillator1dof.png" alt="oscillator1dof.png"></p>
+<h1 id="Einmassenschwinger,-Frequenzanalyse">Einmassenschwinger, Frequenzanalyse<a class="anchor-link" href="#Einmassenschwinger,-Frequenzanalyse">&#182;</a></h1><p><img src="https://github.com/nagelt/soil_dynamics/raw/master/Images/oscillator1dof.png" alt="oscillator1dof.png"></p>
 
 </div>
 </div>
@@ -13163,88 +13163,8 @@ Technische Universität Bergakademie Freiberg.</em></p>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">widgets</span>
-<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span>
-<span class="kn">import</span> <span class="nn">plot_functions.plot_settings</span>
-<span class="o">%</span><span class="k">run</span> plot_functions/single_mass_oscillator_interaction.ipynb
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-  </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Umwandlung sin-cos-Darstellung in Amplitude-Phasenwinkel und zurück (nur zur Info und Überprüfung, wird nicht zur Lösung gebraucht)</p>
-
-</div>
-</div>
-</div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">sc2ap</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">s</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">c</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-  </div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">ap2sc</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">a</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-    <span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-  </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Umrechnung der physikalischen Parameter in die Schwingungsparameter (Standardform)</p>
-
-</div>
-</div>
-</div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">standard_form</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">F_c</span><span class="p">,</span> <span class="n">F_s</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">k</span><span class="o">==</span><span class="mi">0</span> <span class="ow">or</span> <span class="n">m</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: unphysical parameters for an oscillator!&quot;</span><span class="p">)</span>
-    <span class="n">omega_0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">k</span><span class="o">/</span><span class="n">m</span><span class="p">)</span>
-    <span class="n">zeta</span> <span class="o">=</span> <span class="n">c</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">k</span><span class="o">*</span><span class="n">m</span><span class="p">))</span>
-    <span class="n">a_c</span> <span class="o">=</span> <span class="n">F_c</span><span class="o">/</span><span class="n">k</span>
-    <span class="n">a_s</span> <span class="o">=</span> <span class="n">F_s</span><span class="o">/</span><span class="n">k</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">omega_0</span><span class="p">,</span> <span class="n">zeta</span><span class="p">,</span> <span class="n">a_c</span><span class="p">,</span> <span class="n">a_s</span><span class="p">]</span>
+<span class="kn">from</span> <span class="nn">scipy.fft</span> <span class="kn">import</span> <span class="n">fft</span><span class="p">,</span> <span class="n">fftfreq</span>
+<span class="kn">from</span> <span class="nn">scipy.signal.windows</span> <span class="kn">import</span> <span class="n">hann</span>   
 </pre></div>
 
     </div>
@@ -13329,52 +13249,13 @@ Technische Universität Bergakademie Freiberg.</em></p>
   </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Berechnen des Logarithmischen Dekrements (wichtige Größe in der experimentellen Schwingungsmessung)</p>
-
-</div>
-</div>
-</div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">log_decrement</span><span class="p">(</span><span class="n">t_0</span><span class="p">,</span> <span class="n">t_N</span><span class="p">,</span> <span class="n">u_0</span><span class="p">,</span> <span class="n">u_N</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
-    <span class="n">LD</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="n">N</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">u_0</span><span class="o">/</span><span class="n">u_N</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">LD</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-  </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Simulation">Simulation<a class="anchor-link" href="#Simulation">&#182;</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Passen-Sie-die-Parameter-entsprechend-an:">Passen Sie die Parameter entsprechend an:<a class="anchor-link" href="#Passen-Sie-die-Parameter-entsprechend-an:">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Freie ($F_c=F_s=0$), ungedämpfte ($c=0$) oder gedämpfte ($c&gt;0$) Schwingung</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Erzwungene ($\hat{F}&gt;0$), ungedämpfte ($c=0$) oder gedämpfte ($c&gt;0$) Schwingung</p>
+<p>Parameterdefinition</p>
 
 </div>
 </div>
@@ -13391,12 +13272,22 @@ Technische Universität Bergakademie Freiberg.</em></p>
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="mf">3.0</span>   <span class="c1"># kg</span>
 <span class="n">k</span> <span class="o">=</span> <span class="mf">10.0</span>   <span class="c1"># N/m</span>
 <span class="n">c</span> <span class="o">=</span> <span class="mf">1.0</span>   <span class="c1"># Ns/m   critical damping for c=2*sqrt(k*m)=10.95445115...</span>
-<span class="n">F_c</span> <span class="o">=</span> <span class="mf">0.0</span>   <span class="c1"># N</span>
-<span class="n">F_s</span> <span class="o">=</span> <span class="mf">5.0</span>   <span class="c1"># N</span>
-<span class="n">omega</span> <span class="o">=</span> <span class="mf">10.0</span>   <span class="c1"># rad/s</span>
 <span class="n">t_0</span> <span class="o">=</span> <span class="mf">0.0</span>   <span class="c1"># s</span>
-<span class="n">u_0</span> <span class="o">=</span> <span class="mf">0.1</span>   <span class="c1"># m</span>
+<span class="n">u_0</span> <span class="o">=</span> <span class="mf">0.0</span>   <span class="c1"># m</span>
 <span class="n">v_0</span> <span class="o">=</span> <span class="mf">0.0</span>   <span class="c1"># m/s</span>
+<span class="c1">#excitation (discrete spectrum)</span>
+<span class="n">T_a</span> <span class="o">=</span>  <span class="mf">9.0</span>  <span class="c1"># s</span>
+<span class="n">A_0</span> <span class="o">=</span>  <span class="mf">0.0</span>  <span class="c1"># m</span>
+<span class="n">A_1</span> <span class="o">=</span>  <span class="mf">0.0</span>  <span class="c1"># m</span>
+<span class="n">B_1</span> <span class="o">=</span>  <span class="mf">1.0</span>  <span class="c1"># m</span>
+<span class="n">A_2</span> <span class="o">=</span>  <span class="mf">0.2</span>  <span class="c1"># m</span>
+<span class="n">B_2</span> <span class="o">=</span>  <span class="mf">0.0</span>  <span class="c1"># m</span>
+<span class="n">A_3</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.2</span>  <span class="c1"># m</span>
+<span class="n">B_3</span> <span class="o">=</span>  <span class="mf">0.4</span>  <span class="c1"># m</span>
+
+<span class="n">omega</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="n">T_a</span>
+<span class="n">omega_0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">k</span><span class="o">/</span><span class="n">m</span><span class="p">)</span>
+<span class="n">zeta</span> <span class="o">=</span> <span class="n">c</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">k</span><span class="o">*</span><span class="n">m</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -13406,7 +13297,7 @@ Technische Universität Bergakademie Freiberg.</em></p>
   </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Berechnen der Schwingungsparameter und der zur Kraftanregung äquivalenten Federfusspunktanregung</p>
+<p>Eingangspektrum</p>
 
 </div>
 </div>
@@ -13420,38 +13311,22 @@ Technische Universität Bergakademie Freiberg.</em></p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="n">omega_0</span><span class="p">,</span> <span class="n">zeta</span><span class="p">,</span> <span class="n">a_c</span><span class="p">,</span> <span class="n">a_s</span><span class="p">]</span> <span class="o">=</span> <span class="n">standard_form</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">F_c</span><span class="p">,</span> <span class="n">F_s</span><span class="p">)</span>   
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;omega_0=</span><span class="si">{:.3f}</span><span class="s2"> rad/s&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">omega_0</span><span class="p">),</span> <span class="s2">&quot;   zeta=</span><span class="si">{:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">zeta</span><span class="p">))</span>
-
-<span class="c1"># define harmonic excitation as function a(t)</span>
-<span class="n">a</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">a_c</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">a_s</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a0</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">A_0</span>
+<span class="n">a1</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">A_1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">1</span><span class="o">*</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">B_1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">1</span><span class="o">*</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+<span class="n">a2</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">A_2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">B_2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+<span class="n">a3</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">A_3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">B_3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+<span class="c1"># superposition of excitation</span>
+<span class="n">a</span>  <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">a0</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">a1</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">a2</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">a3</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> 
 </pre></div>
 
     </div>
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>omega_0=1.826 rad/s    zeta=0.091
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
   </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Berechnen des eingeschwungenen Zustands (partikuläre Lösung)</p>
+<p>Partikulärlösung</p>
 
 </div>
 </div>
@@ -13465,41 +13340,35 @@ Technische Universität Bergakademie Freiberg.</em></p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="n">u_c</span><span class="p">,</span> <span class="n">u_s</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">psi</span><span class="p">]</span> <span class="o">=</span> <span class="n">steady_state_solution</span><span class="p">(</span><span class="n">omega</span><span class="p">,</span> <span class="n">omega_0</span><span class="p">,</span> <span class="n">zeta</span><span class="p">,</span> <span class="n">a_c</span><span class="p">,</span> <span class="n">a_s</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;V=</span><span class="si">{:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">V</span><span class="p">),</span> <span class="s2">&quot;   psi=</span><span class="si">{:.3f}</span><span class="s2"> rad&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">psi</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;u_c=</span><span class="si">{:.4f}</span><span class="s2"> m&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u_c</span><span class="p">),</span> <span class="s2">&quot;   u_s=</span><span class="si">{:.4f}</span><span class="s2"> m&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u_s</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># DC component u=a, v=0</span>
+<span class="n">up0</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">A_0</span>
+<span class="n">vp0</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">A_0</span>
 
-<span class="c1"># define steady state solution u_p(t) and its time derivative v_p(t)</span>
-<span class="n">up</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">u_c</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">u_s</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
-<span class="n">vp</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="n">u_c</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">u_s</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">))</span> <span class="o">*</span> <span class="n">omega</span>
+<span class="p">[</span><span class="n">u_c1</span><span class="p">,</span> <span class="n">u_s1</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">psi</span><span class="p">]</span> <span class="o">=</span> <span class="n">steady_state_solution</span><span class="p">(</span><span class="mi">1</span><span class="o">*</span><span class="n">omega</span><span class="p">,</span> <span class="n">omega_0</span><span class="p">,</span> <span class="n">zeta</span><span class="p">,</span> <span class="n">A_1</span><span class="p">,</span> <span class="n">B_1</span><span class="p">)</span>
+<span class="n">up1</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">u_c1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">1</span><span class="o">*</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">u_s1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">1</span><span class="o">*</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+<span class="n">vp1</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="n">u_c1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">1</span><span class="o">*</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">u_s1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">1</span><span class="o">*</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">))</span> <span class="o">*</span> <span class="mi">1</span><span class="o">*</span><span class="n">omega</span>
+
+<span class="p">[</span><span class="n">u_c2</span><span class="p">,</span> <span class="n">u_s2</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">psi</span><span class="p">]</span> <span class="o">=</span> <span class="n">steady_state_solution</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">omega</span><span class="p">,</span> <span class="n">omega_0</span><span class="p">,</span> <span class="n">zeta</span><span class="p">,</span> <span class="n">A_2</span><span class="p">,</span> <span class="n">B_2</span><span class="p">)</span>
+<span class="n">up2</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">u_c2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">u_s2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+<span class="n">vp2</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="n">u_c2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">u_s2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">))</span> <span class="o">*</span> <span class="mi">2</span><span class="o">*</span><span class="n">omega</span>
+
+<span class="p">[</span><span class="n">u_c3</span><span class="p">,</span> <span class="n">u_s3</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">psi</span><span class="p">]</span> <span class="o">=</span> <span class="n">steady_state_solution</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">omega</span><span class="p">,</span> <span class="n">omega_0</span><span class="p">,</span> <span class="n">zeta</span><span class="p">,</span> <span class="n">A_3</span><span class="p">,</span> <span class="n">B_3</span><span class="p">)</span>
+<span class="n">up3</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">u_c3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">u_s3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+<span class="n">vp3</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="n">u_c3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">u_s3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">))</span> <span class="o">*</span> <span class="mi">3</span><span class="o">*</span><span class="n">omega</span>
+
+<span class="c1"># superposition of particular solutions</span>
+<span class="n">up</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">up0</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">up1</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">up2</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">up3</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="n">vp</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">vp0</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">vp1</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">vp2</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">vp3</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>V=0.034    psi=3.107 rad
-u_c=-0.0006 m    u_s=-0.0172 m
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
   </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Anpassen der Gesamtlösung an Anfangsbedingungen, je Dämpfungsgrad (über-/unter-/kritisch)</p>
+<p>Lösung der homogenen Gleichung</p>
 
 </div>
 </div>
@@ -13513,8 +13382,7 @@ u_c=-0.0006 m    u_s=-0.0172 m
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># define two solutions u_h(t) and their time derivative v_h(t), depending on discriminant</span>
-<span class="k">if</span> <span class="n">zeta</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">zeta</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
     <span class="n">omega_1</span> <span class="o">=</span> <span class="n">omega_0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">zeta</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
     <span class="n">delta</span> <span class="o">=</span> <span class="n">omega_0</span><span class="o">*</span><span class="n">zeta</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;omega_1=</span><span class="si">{:.3f}</span><span class="s2"> rad/s&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">omega_1</span><span class="p">),</span> <span class="s2">&quot;   delta=</span><span class="si">{:.3f}</span><span class="s2"> 1/s&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">delta</span><span class="p">))</span>
@@ -13537,13 +13405,6 @@ u_c=-0.0006 m    u_s=-0.0172 m
     <span class="n">uh_2</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">delta</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
     <span class="n">vh_1</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">delta</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">*</span><span class="n">delta</span>
     <span class="n">vh_2</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">delta</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="n">t</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">delta</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">*</span><span class="n">delta</span>
-    
-<span class="p">[</span><span class="n">C_1</span><span class="p">,</span> <span class="n">C_2</span><span class="p">]</span> <span class="o">=</span> <span class="n">transient_solution</span><span class="p">(</span><span class="n">t_0</span><span class="p">,</span> <span class="n">u_0</span><span class="p">,</span> <span class="n">v_0</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;C_1=</span><span class="si">{:.3f}</span><span class="s2"> m&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">C_1</span><span class="p">),</span> <span class="s2">&quot;C_2=</span><span class="si">{:.3f}</span><span class="s2"> m&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">C_2</span><span class="p">))</span>
-
-<span class="c1"># define adjusted solution of homogenous solution and total solution</span>
-<span class="n">uh</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">C_1</span><span class="o">*</span><span class="n">uh_1</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">C_2</span><span class="o">*</span><span class="n">uh_2</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> 
-<span class="n">u</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span>  <span class="n">uh</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">up</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> 
 </pre></div>
 
     </div>
@@ -13560,7 +13421,6 @@ u_c=-0.0006 m    u_s=-0.0172 m
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>omega_1=1.818 rad/s    delta=0.167 1/s
-C_1=0.101 m C_2=0.104 m
 </pre>
 </div>
 </div>
@@ -13571,7 +13431,7 @@ C_1=0.101 m C_2=0.104 m
   </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Erstellen diskreter Lösungsverläufe auf einem Zeitraster und grafische Darstellung</p>
+<p>Gesamtlösung für das erste Intervall (<em>Erdbeben</em>)</p>
 
 </div>
 </div>
@@ -13585,13 +13445,21 @@ C_1=0.101 m C_2=0.104 m
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Nplot</span><span class="o">=</span><span class="mi">5</span>
-<span class="n">t_5P</span> <span class="o">=</span> <span class="n">t_0</span> <span class="o">+</span> <span class="n">Nplot</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="n">omega_0</span>   <span class="c1"># &lt;Nplot&gt; periods of free vibrations (undamped)</span>
-<span class="n">t_sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">t_0</span><span class="p">,</span> <span class="n">t_5P</span> <span class="p">,</span> <span class="mi">250</span><span class="p">)</span>   <span class="c1"># discretization with 250 points in time</span>
-<span class="n">a_sample</span> <span class="o">=</span> <span class="n">a</span><span class="p">(</span><span class="n">t_sample</span><span class="p">)</span>
-<span class="n">uh_sample</span> <span class="o">=</span> <span class="n">uh</span><span class="p">(</span><span class="n">t_sample</span><span class="p">)</span>
-<span class="n">up_sample</span> <span class="o">=</span> <span class="n">up</span><span class="p">(</span><span class="n">t_sample</span><span class="p">)</span>
-<span class="n">u_sample</span> <span class="o">=</span> <span class="n">u</span><span class="p">(</span><span class="n">t_sample</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="n">C_1</span><span class="p">,</span> <span class="n">C_2</span><span class="p">]</span> <span class="o">=</span> <span class="n">transient_solution</span><span class="p">(</span><span class="n">t_0</span><span class="p">,</span> <span class="n">u_0</span><span class="p">,</span> <span class="n">v_0</span><span class="p">)</span>
+
+<span class="n">uh</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">C_1</span><span class="o">*</span><span class="n">uh_1</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">C_2</span><span class="o">*</span><span class="n">uh_2</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> 
+<span class="n">u</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span>  <span class="n">uh</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">up</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> 
+<span class="n">vh</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">C_1</span><span class="o">*</span><span class="n">vh_1</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">C_2</span><span class="o">*</span><span class="n">vh_2</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> 
+<span class="n">v</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span>  <span class="n">vh</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">vp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> 
+
+<span class="n">t_T</span> <span class="o">=</span> <span class="n">t_0</span> <span class="o">+</span> <span class="n">T_a</span>
+<span class="n">u_T</span> <span class="o">=</span> <span class="n">u</span><span class="p">(</span><span class="n">t_T</span><span class="p">)</span> 
+<span class="n">v_T</span> <span class="o">=</span> <span class="n">v</span><span class="p">(</span><span class="n">t_T</span><span class="p">)</span>
+<span class="n">t_sample_T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">t_0</span><span class="p">,</span> <span class="n">t_T</span> <span class="p">,</span> <span class="mi">250</span><span class="p">)</span>   <span class="c1"># discretization with 250 points in time</span>
+<span class="n">a_sample_T</span>  <span class="o">=</span>  <span class="n">a</span><span class="p">(</span><span class="n">t_sample_T</span><span class="p">)</span>
+<span class="n">uh_sample_T</span> <span class="o">=</span> <span class="n">uh</span><span class="p">(</span><span class="n">t_sample_T</span><span class="p">)</span>
+<span class="n">up_sample_T</span> <span class="o">=</span> <span class="n">up</span><span class="p">(</span><span class="n">t_sample_T</span><span class="p">)</span>
+<span class="n">u_sample_T</span>  <span class="o">=</span>  <span class="n">u</span><span class="p">(</span><span class="n">t_sample_T</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13599,6 +13467,13 @@ C_1=0.101 m C_2=0.104 m
 </div>
 
   </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Gesamtlösung für das zweite Intervall (<em>Nachwirkung</em>)</p>
+
+</div>
+</div>
+</div>
 
   
 
@@ -13608,95 +13483,89 @@ C_1=0.101 m C_2=0.104 m
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_sample</span><span class="p">,</span> <span class="n">uh_sample</span><span class="p">,</span> <span class="s1">&#39;b--&#39;</span><span class="p">,</span> <span class="n">t_sample</span><span class="p">,</span> <span class="n">up_sample</span><span class="p">,</span> <span class="s1">&#39;b:&#39;</span><span class="p">,</span> <span class="n">t_sample</span><span class="p">,</span> <span class="n">u_sample</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">);</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span>  <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="mi">0</span><span class="o">*</span><span class="n">t</span>
+<span class="n">up</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="mi">0</span><span class="o">*</span><span class="n">t</span>
+<span class="n">vp</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="mi">0</span><span class="o">*</span><span class="n">t</span>
+
+<span class="p">[</span><span class="n">C_1</span><span class="p">,</span> <span class="n">C_2</span><span class="p">]</span> <span class="o">=</span> <span class="n">transient_solution</span><span class="p">(</span><span class="n">t_T</span><span class="p">,</span> <span class="n">u_T</span><span class="p">,</span> <span class="n">v_T</span><span class="p">)</span>   <span class="c1"># end of first intervall is begin of second</span>
+<span class="n">uh</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">C_1</span><span class="o">*</span><span class="n">uh_1</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">C_2</span><span class="o">*</span><span class="n">uh_2</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> 
+<span class="n">u</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span>  <span class="n">uh</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">up</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> 
+<span class="n">vh</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">C_1</span><span class="o">*</span><span class="n">vh_1</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">C_2</span><span class="o">*</span><span class="n">vh_2</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> 
+<span class="n">v</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span>  <span class="n">vh</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">vp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> 
+
+<span class="n">t_2T</span> <span class="o">=</span> <span class="n">t_T</span> <span class="o">+</span> <span class="n">T_a</span>
+<span class="n">t_sample_2T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">t_T</span><span class="p">,</span> <span class="n">t_2T</span> <span class="p">,</span> <span class="mi">250</span><span class="p">)</span>   <span class="c1"># discretization with 250 points in time</span>
+<span class="n">a_sample_2T</span> <span class="o">=</span> <span class="n">a</span><span class="p">(</span><span class="n">t_sample_2T</span><span class="p">)</span>
+<span class="n">uh_sample_2T</span> <span class="o">=</span> <span class="n">uh</span><span class="p">(</span><span class="n">t_sample_2T</span><span class="p">)</span>
+<span class="n">up_sample_2T</span> <span class="o">=</span> <span class="n">up</span><span class="p">(</span><span class="n">t_sample_2T</span><span class="p">)</span>
+<span class="n">u_sample_2T</span> <span class="o">=</span> <span class="n">u</span><span class="p">(</span><span class="n">t_sample_2T</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+  </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Beide Intervalle zusammensetzen und grafisch darstellen</p>
+
+</div>
+</div>
+</div>
+
+  
+
+  <div class="
+      cell border-box-sizing code_cell rendered">
+    <div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">t_sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">t_sample_T</span><span class="p">,</span> <span class="n">t_sample_2T</span><span class="p">))</span>
+<span class="n">a_sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">a_sample_T</span><span class="p">,</span> <span class="n">a_sample_2T</span><span class="p">))</span>
+<span class="n">u_sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">u_sample_T</span><span class="p">,</span> <span class="n">u_sample_2T</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_sample</span><span class="p">,</span> <span class="n">a_sample</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">t_sample</span><span class="p">,</span> <span class="n">u_sample</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">);</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$t$&quot;</span><span class="p">);</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$u$&quot;</span><span class="p">);</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
-  </div>
+<div class="output_wrapper">
+<div class="output">
 
-  
 
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
+<div class="output_area">
 
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_sample</span><span class="p">,</span> <span class="n">a_sample</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">t_sample</span><span class="p">,</span> <span class="n">up_sample</span><span class="p">,</span> <span class="s1">&#39;b:&#39;</span><span class="p">);</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$t$&quot;</span><span class="p">);</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$u, a$&quot;</span><span class="p">);</span>
-</pre></div>
+    
 
-    </div>
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
 </div>
 </div>
 
   </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Diskussion:</strong> Wie würden Sie das Einschalten einer Maschine simulieren, d.h. mit welchen Parametern und Anfangsbedingungen?</p>
-
-</div>
-</div>
-</div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">interactive_tau_u_plot</span><span class="p">()</span>   <span class="c1"># nondimensional parameters</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-  </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Parameterbestimmung">Parameterbestimmung<a class="anchor-link" href="#Parameterbestimmung">&#182;</a></h2>
+<h2 id="Anregungs--und-Antwortspektrum-berechnen">Anregungs- und Antwortspektrum berechnen<a class="anchor-link" href="#Anregungs--und-Antwortspektrum-berechnen">&#182;</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Ausschwingversuch">Ausschwingversuch<a class="anchor-link" href="#Ausschwingversuch">&#182;</a></h3>
-</div>
-</div>
-</div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">t1</span> <span class="o">=</span> <span class="mi">0</span>   <span class="c1"># s</span>
-<span class="n">t2</span> <span class="o">=</span> <span class="mf">1.0</span>   <span class="c1"># s</span>
-<span class="n">u1</span> <span class="o">=</span> <span class="mf">0.1</span>   <span class="c1"># m</span>
-<span class="n">u2</span> <span class="o">=</span> <span class="mf">0.08</span>   <span class="c1"># m</span>
-<span class="n">N</span> <span class="o">=</span> <span class="mi">1</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-  </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Was wir im Experiment sehen ist die gedämpfte Eigenfrequenz</p>
+<p>Anregungsspektrum ist gegeben, wird zur Kontrolle nochmal berechnet</p>
 
 </div>
 </div>
@@ -13710,8 +13579,10 @@ C_1=0.101 m C_2=0.104 m
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">T_id</span> <span class="o">=</span> <span class="n">t2</span> <span class="o">-</span> <span class="n">t1</span>
-<span class="n">omega_1_id</span> <span class="o">=</span> <span class="mf">2.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="n">T_id</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">t_sample</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t_sample</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> 
+<span class="n">Na</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t_sample_T</span><span class="p">)</span>  
+<span class="n">a_f</span> <span class="o">=</span> <span class="n">fft</span><span class="p">(</span><span class="n">a_sample_T</span><span class="p">)</span>    
+<span class="n">ta_f</span> <span class="o">=</span> <span class="n">fftfreq</span><span class="p">(</span><span class="n">Na</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span> 
 </pre></div>
 
     </div>
@@ -13721,7 +13592,7 @@ C_1=0.101 m C_2=0.104 m
   </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Nach einer Periode, wiederholen sich die harmonischen Funktionen, dadurch erfassen wir das Abklingen $e^{-\delta t}$ und nutzen $e^{-\delta t_2}=e^{-\delta(t_1+T)}=e^{-\delta t_1} e^{-\delta T}$</p>
+<p>Ausgangsspektrum</p>
 
 </div>
 </div>
@@ -13735,10 +13606,10 @@ C_1=0.101 m C_2=0.104 m
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">LD</span> <span class="o">=</span> <span class="n">log_decrement</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">,</span> <span class="n">u1</span><span class="p">,</span> <span class="n">u2</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
-<span class="n">delta_id</span> <span class="o">=</span> <span class="n">LD</span><span class="o">/</span><span class="n">T_id</span>
-<span class="n">c_id</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">delta_id</span><span class="o">*</span><span class="n">m</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;c_id=</span><span class="si">{:.3f}</span><span class="s2"> Ns/m&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">c_id</span><span class="p">)</span> <span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Nu</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t_sample_T</span><span class="p">)</span> <span class="c1"># </span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">hann</span><span class="p">(</span><span class="n">Nu</span><span class="p">)</span>   <span class="c1"># Hanning window</span>
+<span class="n">uw_f</span> <span class="o">=</span> <span class="n">fft</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">u_sample_T</span><span class="p">)</span>     
+<span class="n">tu_f</span> <span class="o">=</span> <span class="n">fftfreq</span><span class="p">(</span><span class="n">Nu</span><span class="p">,</span> <span class="n">dt</span><span class="p">)[:</span><span class="n">Nu</span><span class="o">//</span><span class="mi">2</span><span class="p">]</span>
 </pre></div>
 
     </div>
@@ -13748,7 +13619,7 @@ C_1=0.101 m C_2=0.104 m
   </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Wir erinnern uns an $\omega_1=\omega_0\sqrt{1-\zeta^2}$ und $\delta=\zeta \omega_0$</p>
+<p>Grafische Darstellung</p>
 
 </div>
 </div>
@@ -13762,118 +13633,54 @@ C_1=0.101 m C_2=0.104 m
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">omega_0_id_squared</span> <span class="o">=</span> <span class="n">omega_1_id</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">delta_id</span><span class="o">**</span><span class="mi">2</span>
-<span class="n">k_id</span> <span class="o">=</span> <span class="n">omega_0_id_squared</span><span class="o">*</span><span class="n">m</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;k_id=</span><span class="si">{:.3f}</span><span class="s2"> N/m&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k_id</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">f0</span><span class="o">=</span><span class="n">omega_0</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>   <span class="c1"># TODO damped eigenfrequency would be better, but needs definition by cases </span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ta_f</span><span class="p">[:</span><span class="n">Na</span><span class="o">//</span><span class="mi">20</span><span class="p">],</span> <span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="n">Na</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">a_f</span><span class="p">[:</span><span class="n">Na</span><span class="o">//</span><span class="mi">20</span><span class="p">]),</span> <span class="s1">&#39;ro:&#39;</span><span class="p">,</span> <span class="n">tu_f</span><span class="p">[:</span><span class="n">Nu</span><span class="o">//</span><span class="mi">20</span><span class="p">],</span> <span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="n">Nu</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">uw_f</span><span class="p">[:</span><span class="n">Nu</span><span class="o">//</span><span class="mi">20</span><span class="p">]),</span> <span class="s1">&#39;bo:&#39;</span><span class="p">,</span> <span class="n">f0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;ko&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$f$&quot;</span><span class="p">);</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
 </div>
 </div>
 
   </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Schwingsaitenwaage">Schwingsaitenwaage<a class="anchor-link" href="#Schwingsaitenwaage">&#182;</a></h3>
+<p>Warum befinden sich die Maxima beider Spektren bei unterschiedlichen Frequenzen?
+Hinweis: Der einzelne schwarze Punkt markiert die (ungedämpfte) 
+Eigenfrequenz.</p>
+
 </div>
 </div>
 </div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">omega_measured</span> <span class="o">=</span> <span class="mf">10.0</span>
-<span class="n">zeta_measured</span> <span class="o">=</span> <span class="mf">0.1</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-  </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>ungedämpfte Eigenkreisfrequenz $\omega_0=\sqrt{\frac{k}{m}}$</p>
+<p><strong>Zusatzfrage:</strong> die ungedämpfte Eigenfrequenz wäre als Bezug besser geeignet, worauf ist dabei zu achten?</p>
 
 </div>
 </div>
 </div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">omega_0_measured_1</span> <span class="o">=</span> <span class="n">omega_measured</span>
-<span class="n">k_measured_1</span> <span class="o">=</span> <span class="n">m</span><span class="o">*</span><span class="n">omega_0_measured_1</span><span class="o">**</span><span class="mi">2</span>    
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;k1=</span><span class="si">{:.3f}</span><span class="s2"> N/m&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k_measured_1</span><span class="p">)</span> <span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-  </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>gedämpfte Eigenkreisfrequenz $\omega_1=\omega_0\sqrt{1-\zeta^2}$</p>
-
-</div>
-</div>
-</div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">omega_0_measured_2</span> <span class="o">=</span> <span class="n">omega_measured</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">zeta_measured</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">k_measured_2</span> <span class="o">=</span> <span class="n">m</span><span class="o">*</span><span class="n">omega_0_measured_2</span><span class="o">**</span><span class="mi">2</span>    
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;k2=</span><span class="si">{:.3f}</span><span class="s2"> N/m&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k_measured_2</span><span class="p">),</span> <span class="s2">&quot;   Delta=</span><span class="si">{:2.2f}</span><span class="s2"> %&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">k_measured_2</span><span class="o">-</span><span class="n">k_measured_1</span><span class="p">)</span><span class="o">/</span><span class="n">k_measured_1</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-  </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>maximale Antwortamplitude bei der Anregungsfrequenz $\omega_\mathrm{MA}=\omega_0\sqrt{1-2\zeta^2}$</p>
-
-</div>
-</div>
-</div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">omega_0_measured_3</span> <span class="o">=</span> <span class="n">omega_measured</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">zeta_measured</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">k_measured_3</span> <span class="o">=</span> <span class="n">m</span><span class="o">*</span><span class="n">omega_0_measured_3</span><span class="o">**</span><span class="mi">2</span>    
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;k3=</span><span class="si">{:.3f}</span><span class="s2"> N/m&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k_measured_3</span><span class="p">),</span> <span class="s2">&quot;   Delta=</span><span class="si">{:2.2f}</span><span class="s2"> %&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">k_measured_3</span><span class="o">-</span><span class="n">k_measured_1</span><span class="p">)</span><span class="o">/</span><span class="n">k_measured_1</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-  </div>
 
   
 
