@@ -5,3 +5,5 @@ A lot of the content is in German, as the material is used in lectures at a Germ
 [Einmasseschwinger, single mass oscillator](single_mass_oscillator.html)
 
 [Frequenzanalyse, frequency analysis](frequency_analysis.html)
+
+[Einfache Modelle für Zyklische Belastung; simple models for cyclic loading; small-strain stiffness](soil_model.html)
