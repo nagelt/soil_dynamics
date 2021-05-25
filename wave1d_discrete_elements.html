@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 
 
-<title>single_mass_oscillator</title>
+<title>wave1d_discrete_elements</title>
 
 <style type="text/css">
     /*!
@@ -13134,14 +13134,7 @@ Technische Universität Bergakademie Freiberg.</em></p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Einmassenschwinger,-Grundlagen">Einmassenschwinger, Grundlagen<a class="anchor-link" href="#Einmassenschwinger,-Grundlagen">&#182;</a></h1><p><img src="https://github.com/nagelt/soil_dynamics/raw/master/Images/oscillator1dof.png" alt="oscillator1dof.png"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Hilfsfunktionen">Hilfsfunktionen<a class="anchor-link" href="#Hilfsfunktionen">&#182;</a></h2>
+<h1 id="Wellenausbreitung-im-Dehnstab,-Rand--und-&#220;bergangsbedingungen-mit-disreten-Kraftelementen">Wellenausbreitung im Dehnstab, Rand- und &#220;bergangsbedingungen mit disreten Kraftelementen<a class="anchor-link" href="#Wellenausbreitung-im-Dehnstab,-Rand--und-&#220;bergangsbedingungen-mit-disreten-Kraftelementen">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -13161,12 +13154,16 @@ Technische Universität Bergakademie Freiberg.</em></p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">widgets</span>
 <span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span>
+<span class="kn">from</span> <span class="nn">sympy.interactive</span> <span class="kn">import</span> <span class="n">printing</span>
 <span class="kn">import</span> <span class="nn">plot_functions.plot_settings</span>
-<span class="o">%</span><span class="k">run</span> plot_functions/single_mass_oscillator_interaction.ipynb
+<span class="o">%</span><span class="k">run</span> plot_functions/wave1d_discrete_elements_interaction.ipynb
+<span class="n">printing</span><span class="o">.</span><span class="n">init_printing</span><span class="p">()</span>
+<span class="o">%</span><span class="k">load_ext</span> ipydex.displaytools
 </pre></div>
 
     </div>
@@ -13176,7 +13173,27 @@ Technische Universität Bergakademie Freiberg.</em></p>
   </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Umwandlung sin-cos-Darstellung in Amplitude-Phasenwinkel und zurück (nur zur Info und Überprüfung, wird nicht zur Lösung gebraucht)</p>
+<p><em>Last line enables special comment <strong>##:</strong> for LaTeX formatting of output</em></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Randbedingungen">Randbedingungen<a class="anchor-link" href="#Randbedingungen">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="https://github.com/nagelt/soil_dynamics/raw/master/Images/wavebar_bc.png" alt="wavebar_bc.png"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Variablen für symbolische Rechnung deklarieren (sympy)</p>
 
 </div>
 </div>
@@ -13190,30 +13207,7 @@ Technische Universität Bergakademie Freiberg.</em></p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">sc2ap</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">s</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">c</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-  </div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">ap2sc</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">a</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-    <span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">m</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">EA</span><span class="p">,</span> <span class="n">kappa</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">omega</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">C1</span><span class="p">,</span> <span class="n">C2</span><span class="p">,</span> <span class="n">R1</span><span class="p">,</span> <span class="n">R2</span><span class="p">,</span> <span class="n">SIN</span><span class="p">,</span> <span class="n">COS</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;m c k w EA kappa z omega t C1 C2 R1 R2 SIN COS&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13223,7 +13217,7 @@ Technische Universität Bergakademie Freiberg.</em></p>
   </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Umrechnung der physikalischen Parameter in die Schwingungsparameter (Standardform)</p>
+<p>Randbedingung in zwei Gleichungen aufteilen (reelle Zahlen: sin-/cos-Terme)</p>
 
 </div>
 </div>
@@ -13237,14 +13231,14 @@ Technische Universität Bergakademie Freiberg.</em></p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">standard_form</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">F_c</span><span class="p">,</span> <span class="n">F_s</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">k</span><span class="o">==</span><span class="mi">0</span> <span class="ow">or</span> <span class="n">m</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: unphysical parameters for an oscillator!&quot;</span><span class="p">)</span>
-    <span class="n">omega_0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">k</span><span class="o">/</span><span class="n">m</span><span class="p">)</span>
-    <span class="n">zeta</span> <span class="o">=</span> <span class="n">c</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">k</span><span class="o">*</span><span class="n">m</span><span class="p">))</span>
-    <span class="n">a_c</span> <span class="o">=</span> <span class="n">F_c</span><span class="o">/</span><span class="n">k</span>
-    <span class="n">a_s</span> <span class="o">=</span> <span class="n">F_s</span><span class="o">/</span><span class="n">k</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">omega_0</span><span class="p">,</span> <span class="n">zeta</span><span class="p">,</span> <span class="n">a_c</span><span class="p">,</span> <span class="n">a_s</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">reflection</span><span class="p">(</span><span class="n">BC</span><span class="p">):</span>
+    <span class="n">BCz0</span> <span class="o">=</span>  <span class="n">BC</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>   <span class="c1"># evaluate BC at z=0</span>
+    <span class="n">BCsincos</span> <span class="o">=</span> <span class="n">BCz0</span><span class="o">.</span><span class="n">subs</span><span class="p">([</span> <span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">),</span> <span class="n">SIN</span><span class="p">),</span> <span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">),</span> <span class="n">COS</span><span class="p">)]</span> <span class="p">)</span>   <span class="c1"># turn functions into constants to enable collect</span>
+    <span class="n">BCSC</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">BCsincos</span><span class="p">),</span> <span class="p">[</span><span class="n">SIN</span><span class="p">,</span> <span class="n">COS</span><span class="p">])</span>   <span class="c1"># first expand and then collect for sin- and cos-terms</span>
+    <span class="n">BCsin</span> <span class="o">=</span> <span class="n">BCSC</span><span class="o">.</span><span class="n">coeff</span><span class="p">(</span><span class="n">SIN</span><span class="p">)</span>
+    <span class="n">BCcos</span> <span class="o">=</span> <span class="n">BCSC</span><span class="o">.</span><span class="n">coeff</span><span class="p">(</span><span class="n">COS</span><span class="p">)</span>
+    <span class="n">solution</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span> <span class="p">[</span><span class="n">BCcos</span><span class="p">,</span> <span class="n">BCsin</span><span class="p">],</span> <span class="n">R1</span><span class="p">,</span> <span class="n">R2</span><span class="p">)</span>    <span class="c1"># use sp.linsolve if speed becomes an issue</span>
+    <span class="k">return</span> <span class="n">solution</span>
 </pre></div>
 
     </div>
@@ -13254,7 +13248,7 @@ Technische Universität Bergakademie Freiberg.</em></p>
   </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Eingeschwungenen Zustand (partikuläre Lösung) berechnen, inklusive Vergrößerungsfunktion und Phasendifferenz</p>
+<p>Überlagerung einfallender und reflektierter Welle, benötigte Ableitungen</p>
 
 </div>
 </div>
@@ -13268,21 +13262,10 @@ Technische Universität Bergakademie Freiberg.</em></p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">steady_state_solution</span><span class="p">(</span><span class="n">omega</span><span class="p">,</span> <span class="n">omega_0</span><span class="p">,</span> <span class="n">zeta</span><span class="p">,</span> <span class="n">a_c</span><span class="p">,</span> <span class="n">a_s</span><span class="p">):</span>
-    <span class="n">eta</span> <span class="o">=</span> <span class="n">omega</span><span class="o">/</span><span class="n">omega_0</span>
-    <span class="k">if</span> <span class="n">eta</span><span class="o">==</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">zeta</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>   <span class="c1"># TODO implement solutions up1(t) and up2(t) for this case as done for uh(t)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: no steady-state solution for resonant excitation of undamped oscillator!&quot;</span><span class="p">)</span>
-        <span class="n">V</span> <span class="o">=</span> <span class="mi">0</span> 
-        <span class="n">psi</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">u_c</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">u_s</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">else</span><span class="p">:</span>        
-        <span class="n">V2</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">/</span><span class="p">(</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">eta</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">eta</span><span class="o">*</span><span class="n">zeta</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="p">)</span>
-        <span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">V2</span><span class="p">)</span>
-        <span class="n">psi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">zeta</span><span class="o">*</span><span class="n">eta</span><span class="p">,</span> <span class="mi">1</span><span class="o">-</span><span class="n">eta</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-        <span class="n">u_c</span> <span class="o">=</span> <span class="n">V2</span><span class="o">*</span><span class="p">(</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">eta</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">a_c</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">zeta</span><span class="o">*</span><span class="n">eta</span><span class="o">*</span><span class="n">a_s</span> <span class="p">)</span>
-        <span class="n">u_s</span> <span class="o">=</span> <span class="n">V2</span><span class="o">*</span><span class="p">(</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">eta</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">a_s</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">zeta</span><span class="o">*</span><span class="n">eta</span><span class="o">*</span><span class="n">a_c</span> <span class="p">)</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">u_c</span><span class="p">,</span> <span class="n">u_s</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">psi</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">w</span>   <span class="o">=</span> <span class="n">C1</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">kappa</span><span class="o">*</span><span class="n">z</span> <span class="o">+</span> <span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">C2</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">kappa</span><span class="o">*</span><span class="n">z</span> <span class="o">+</span> <span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">R1</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">kappa</span><span class="o">*</span><span class="n">z</span> <span class="o">-</span> <span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">R2</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">kappa</span><span class="o">*</span><span class="n">z</span> <span class="o">-</span> <span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+<span class="n">wt</span>  <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">w</span><span class="p">,</span>  <span class="n">t</span><span class="p">)</span>
+<span class="n">wtt</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">wt</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="n">wz</span>  <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">w</span><span class="p">,</span>  <span class="n">z</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13292,7 +13275,7 @@ Technische Universität Bergakademie Freiberg.</em></p>
   </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Anpassen der Gesamtlösung an die Anfangsbedingungen</p>
+<p>Randfeder</p>
 
 </div>
 </div>
@@ -13306,30 +13289,49 @@ Technische Universität Bergakademie Freiberg.</em></p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">transient_solution</span><span class="p">(</span><span class="n">t_0</span><span class="p">,</span> <span class="n">u_0</span><span class="p">,</span> <span class="n">v_0</span><span class="p">):</span>
-    <span class="n">uh_c1</span> <span class="o">=</span> <span class="n">uh_1</span><span class="p">(</span><span class="n">t_0</span><span class="p">)</span>
-    <span class="n">uh_c2</span> <span class="o">=</span> <span class="n">uh_2</span><span class="p">(</span><span class="n">t_0</span><span class="p">)</span>
-    <span class="n">vh_c1</span> <span class="o">=</span> <span class="n">vh_1</span><span class="p">(</span><span class="n">t_0</span><span class="p">)</span>
-    <span class="n">vh_c2</span> <span class="o">=</span> <span class="n">vh_2</span><span class="p">(</span><span class="n">t_0</span><span class="p">)</span>
-    <span class="n">up_0</span> <span class="o">=</span> <span class="n">up</span><span class="p">(</span><span class="n">t_0</span><span class="p">)</span>
-    <span class="n">vp_0</span> <span class="o">=</span> <span class="n">vp</span><span class="p">(</span><span class="n">t_0</span><span class="p">)</span>
-    <span class="c1"># LGS Ax=b</span>
-    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">uh_c1</span><span class="p">,</span> <span class="n">uh_c2</span><span class="p">],</span> <span class="p">[</span><span class="n">vh_c1</span><span class="p">,</span> <span class="n">vh_c2</span><span class="p">]])</span>
-    <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">u_0</span><span class="o">-</span><span class="n">up_0</span><span class="p">,</span> <span class="n">v_0</span><span class="o">-</span><span class="n">vp_0</span><span class="p">])</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-    <span class="n">C_1</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">C_2</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">C_1</span><span class="p">,</span> <span class="n">C_2</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">springBC</span> <span class="o">=</span> <span class="n">k</span><span class="o">*</span><span class="n">w</span> <span class="o">-</span> <span class="n">EA</span><span class="o">*</span><span class="n">wz</span>
+<span class="n">springBCsol</span> <span class="o">=</span> <span class="n">reflection</span><span class="p">(</span><span class="n">springBC</span><span class="p">)</span> <span class="c1">##:</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    
+
+
+
+<div class="output_latex output_subarea ">
+springBCsol := $\displaystyle \left\{ R_{1} : \frac{C_{1} EA^{2} \kappa^{2} - C_{1} k^{2} + 2 C_{2} EA k \kappa}{EA^{2} \kappa^{2} + k^{2}}, \  R_{2} : \frac{2 C_{1} EA k \kappa - C_{2} EA^{2} \kappa^{2} + C_{2} k^{2}}{EA^{2} \kappa^{2} + k^{2}}\right\}$
+</div>
+
+</div>
+
+<div class="output_area">
+
+    
+
+
+
+<div class="output_text output_subarea ">
+<pre>---</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
   </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Berechnen des Logarithmischen Dekrements (wichtige Größe in der experimentellen Schwingungsmessung)</p>
+<p>Randdämpfer</p>
 
 </div>
 </div>
@@ -13343,38 +13345,49 @@ Technische Universität Bergakademie Freiberg.</em></p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">log_decrement</span><span class="p">(</span><span class="n">t_0</span><span class="p">,</span> <span class="n">t_N</span><span class="p">,</span> <span class="n">u_0</span><span class="p">,</span> <span class="n">u_N</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
-    <span class="n">LD</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="n">N</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">u_0</span><span class="o">/</span><span class="n">u_N</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">LD</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dashpotBC</span> <span class="o">=</span> <span class="n">c</span><span class="o">*</span><span class="n">wt</span> <span class="o">-</span> <span class="n">EA</span><span class="o">*</span><span class="n">wz</span>
+<span class="n">dashpotBCsol</span> <span class="o">=</span> <span class="n">reflection</span><span class="p">(</span><span class="n">dashpotBC</span><span class="p">)</span> <span class="c1">##:</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
-  </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Simulation">Simulation<a class="anchor-link" href="#Simulation">&#182;</a></h2>
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    
+
+
+
+<div class="output_latex output_subarea ">
+dashpotBCsol := $\displaystyle \left\{ R_{1} : \frac{C_{1} EA \kappa - C_{1} c \omega}{EA \kappa + c \omega}, \  R_{2} : \frac{- C_{2} EA \kappa + C_{2} c \omega}{EA \kappa + c \omega}\right\}$
 </div>
+
 </div>
+
+<div class="output_area">
+
+    
+
+
+
+<div class="output_text output_subarea ">
+<pre>---</pre>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Passen-Sie-die-Parameter-entsprechend-an:">Passen Sie die Parameter entsprechend an:<a class="anchor-link" href="#Passen-Sie-die-Parameter-entsprechend-an:">&#182;</a></h4>
+
 </div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Freie ($F_c=F_s=0$), ungedämpfte ($c=0$) oder gedämpfte ($c&gt;0$) Schwingung</p>
 
 </div>
 </div>
-</div>
+
+  </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Erzwungene ($\hat{F}&gt;0$), ungedämpfte ($c=0$) oder gedämpfte ($c&gt;0$) Schwingung</p>
+<p>Randmasse</p>
 
 </div>
 </div>
@@ -13388,25 +13401,63 @@ Technische Universität Bergakademie Freiberg.</em></p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="mf">3.0</span>   <span class="c1"># kg</span>
-<span class="n">k</span> <span class="o">=</span> <span class="mf">10.0</span>   <span class="c1"># N/m</span>
-<span class="n">c</span> <span class="o">=</span> <span class="mf">1.0</span>   <span class="c1"># Ns/m   critical damping for c=2*sqrt(k*m)=10.95445115...</span>
-<span class="n">F_c</span> <span class="o">=</span> <span class="mf">0.0</span>   <span class="c1"># N</span>
-<span class="n">F_s</span> <span class="o">=</span> <span class="mf">5.0</span>   <span class="c1"># N</span>
-<span class="n">omega</span> <span class="o">=</span> <span class="mf">10.0</span>   <span class="c1"># rad/s</span>
-<span class="n">t_0</span> <span class="o">=</span> <span class="mf">0.0</span>   <span class="c1"># s</span>
-<span class="n">u_0</span> <span class="o">=</span> <span class="mf">0.1</span>   <span class="c1"># m</span>
-<span class="n">v_0</span> <span class="o">=</span> <span class="mf">0.0</span>   <span class="c1"># m/s</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">massBC</span> <span class="o">=</span> <span class="n">m</span><span class="o">*</span><span class="n">wtt</span> <span class="o">-</span> <span class="n">EA</span><span class="o">*</span><span class="n">wz</span>
+<span class="n">massBCsol</span> <span class="o">=</span> <span class="n">reflection</span><span class="p">(</span><span class="n">massBC</span><span class="p">)</span> <span class="c1">##:</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    
+
+
+
+<div class="output_latex output_subarea ">
+massBCsol := $\displaystyle \left\{ R_{1} : \frac{C_{1} EA^{2} \kappa^{2} - C_{1} m^{2} \omega^{4} - 2 C_{2} EA \kappa m \omega^{2}}{EA^{2} \kappa^{2} + m^{2} \omega^{4}}, \  R_{2} : \frac{- 2 C_{1} EA \kappa m \omega^{2} - C_{2} EA^{2} \kappa^{2} + C_{2} m^{2} \omega^{4}}{EA^{2} \kappa^{2} + m^{2} \omega^{4}}\right\}$
+</div>
+
+</div>
+
+<div class="output_area">
+
+    
+
+
+
+<div class="output_text output_subarea ">
+<pre>---</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
   </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Berechnen der Schwingungsparameter und der zur Kraftanregung äquivalenten Federfusspunktanregung</p>
+<p>Wie ließe sich die Rechnung für Kombinationen mehrerer Kraftelemente zusammenfassen?</p>
+<p>Wie ließe sich die Rechnung durch komplexe Zahlen kompakter formulieren?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&#220;bergangsbedingungen">&#220;bergangsbedingungen<a class="anchor-link" href="#&#220;bergangsbedingungen">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="https://github.com/nagelt/soil_dynamics/raw/master/Images/wavebar_tc.png" alt="wavebar_tc.png"></p>
 
 </div>
 </div>
@@ -13420,11 +13471,87 @@ Technische Universität Bergakademie Freiberg.</em></p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="n">omega_0</span><span class="p">,</span> <span class="n">zeta</span><span class="p">,</span> <span class="n">a_c</span><span class="p">,</span> <span class="n">a_s</span><span class="p">]</span> <span class="o">=</span> <span class="n">standard_form</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">F_c</span><span class="p">,</span> <span class="n">F_s</span><span class="p">)</span>   
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;omega_0=</span><span class="si">{:.3f}</span><span class="s2"> rad/s&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">omega_0</span><span class="p">),</span> <span class="s2">&quot;   zeta=</span><span class="si">{:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">zeta</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">interactive_transition_conditions_plot</span><span class="p">()</span>   
+</pre></div>
 
-<span class="c1"># define harmonic excitation as function a(t)</span>
-<span class="n">a</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">a_c</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">a_s</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    
+
+
+
+  <div class="output_subarea output_widget_view ">
+    <button class="js-nbinteract-widget">
+      Loading widgets...
+    </button>
+  </div>
+
+</div>
+
+</div>
+</div>
+
+  </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Durch welche konstruktiven Maßnahmen ließe sich eine gute Schwingungsisolation erreichen?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Herleitung-der-Ausdr&#252;cke-hinter-dem-interaktiven-Diagramm">Herleitung der Ausdr&#252;cke hinter dem interaktiven Diagramm<a class="anchor-link" href="#Herleitung-der-Ausdr&#252;cke-hinter-dem-interaktiven-Diagramm">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+  
+
+  <div class="
+      cell border-box-sizing code_cell rendered">
+    <div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">m</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">EA</span><span class="p">,</span> <span class="n">kappa</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">omega</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;m c k w EA kappa z omega t&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># dimensional parameters</span>
+<span class="n">C</span><span class="p">,</span> <span class="n">cT</span><span class="p">,</span> <span class="n">cR</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;C cT cR&#39;</span><span class="p">)</span>   <span class="c1"># incident amplitude, transmission and reflection coefficient</span>
+   
+<span class="n">w_left</span> <span class="o">=</span> <span class="n">cR</span><span class="o">*</span><span class="n">C</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">I</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="n">kappa</span><span class="o">*</span><span class="n">z</span> <span class="o">-</span> <span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">))</span> <span class="o">+</span> <span class="n">C</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">I</span><span class="o">*</span><span class="p">(</span><span class="o">+</span><span class="n">kappa</span><span class="o">*</span><span class="n">z</span> <span class="o">-</span> <span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">))</span>    <span class="c1"># waves in left domain (incident and reflected)</span>
+<span class="n">w_left_z</span> <span class="o">=</span>  <span class="n">sp</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">w_left</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>   <span class="c1"># spatial derivative</span>
+<span class="n">w_left_t</span> <span class="o">=</span>  <span class="n">sp</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">w_left</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>   <span class="c1"># temporal derivative (velocity)</span>
+<span class="n">w_left_tt</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">w_left_t</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>   <span class="c1"># temporal derivative (acceleration)</span>
+
+<span class="n">w_right</span>  <span class="o">=</span> <span class="n">cT</span><span class="o">*</span><span class="n">C</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">I</span><span class="o">*</span><span class="p">(</span><span class="o">+</span><span class="n">kappa</span><span class="o">*</span><span class="n">z</span> <span class="o">-</span> <span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">))</span>    <span class="c1"># wave in right domain (transmitted)</span>
+<span class="n">w_right_z</span> <span class="o">=</span>  <span class="n">sp</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">w_right</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>   <span class="c1"># spatial derivative</span>
+<span class="n">w_right_t</span> <span class="o">=</span>  <span class="n">sp</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">w_right</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>   <span class="c1"># temporal derivative (velocity)</span>
+<span class="n">w_right_tt</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">w_right_t</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>   <span class="c1"># temporal derivative (acceleration)</span>
+
+<span class="n">kinematics</span> <span class="o">=</span> <span class="n">w_left</span> <span class="o">-</span> <span class="n">w_right</span>   <span class="c1"># continuity in displacement</span>
+<span class="n">kinematics_z0</span> <span class="o">=</span> <span class="n">kinematics</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>   <span class="c1"># evaluate TC at z=0</span>
+<span class="n">kinematics_eq</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">kinematics_z0</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">I</span><span class="o">*</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">))</span>   <span class="c1"># cancel time-depependency</span>
+
+<span class="c1">#kinetics = EA*(w_right_z-w_left_z) - k*w_right - c*w_right_t - m*w_right_tt   # momentum balance</span>
+<span class="n">kinetics</span> <span class="o">=</span> <span class="n">EA</span><span class="o">*</span><span class="p">(</span><span class="n">w_right_z</span><span class="o">-</span><span class="n">w_left_z</span><span class="p">)</span> <span class="o">-</span> <span class="n">k</span><span class="o">*</span><span class="n">w_left</span> <span class="o">-</span> <span class="n">c</span><span class="o">*</span><span class="n">w_left_t</span> <span class="o">-</span> <span class="n">m</span><span class="o">*</span><span class="n">w_left_tt</span>   <span class="c1"># momentum balance</span>
+<span class="n">kinetics_z0</span> <span class="o">=</span>  <span class="n">kinetics</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>   <span class="c1"># evaluate TC at z=0</span>
+<span class="n">kinetics_eq</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">kinetics_z0</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">I</span><span class="o">*</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">))</span>   <span class="c1"># cancel time-depependency</span>
+
+<span class="n">TCsol</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">solve</span><span class="p">([</span><span class="n">kinematics_eq</span><span class="p">,</span> <span class="n">kinetics_eq</span><span class="p">],</span> <span class="n">cR</span><span class="p">,</span> <span class="n">cT</span><span class="p">)</span>   <span class="c1"># solve transition conditions</span>
+<span class="n">cT</span> <span class="o">=</span> <span class="n">TCsol</span><span class="p">[</span><span class="n">cT</span><span class="p">]</span>   <span class="c1"># transmission coefficient</span>
+<span class="n">cR</span> <span class="o">=</span> <span class="n">TCsol</span><span class="p">[</span><span class="n">cR</span><span class="p">]</span>   <span class="c1"># reflection coefficient</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;cT = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cT</span><span class="p">))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">cT</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;cR = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cR</span><span class="p">))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">cR</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13440,447 +13567,49 @@ Technische Universität Bergakademie Freiberg.</em></p>
     
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>omega_0=1.826 rad/s    zeta=0.091
+<pre>cT = 2*I*EA*kappa/(2*I*EA*kappa + I*c*omega - k + m*omega**2)
 </pre>
 </div>
 </div>
 
-</div>
-</div>
+<div class="output_area">
 
-  </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Berechnen des eingeschwungenen Zustands (partikuläre Lösung)</p>
+    
 
-</div>
-</div>
+
+
+<div class="output_latex output_subarea ">
+$\displaystyle \frac{2 i EA \kappa}{2 i EA \kappa + i c \omega - k + m \omega^{2}}$
 </div>
 
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="n">u_c</span><span class="p">,</span> <span class="n">u_s</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">psi</span><span class="p">]</span> <span class="o">=</span> <span class="n">steady_state_solution</span><span class="p">(</span><span class="n">omega</span><span class="p">,</span> <span class="n">omega_0</span><span class="p">,</span> <span class="n">zeta</span><span class="p">,</span> <span class="n">a_c</span><span class="p">,</span> <span class="n">a_s</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;V=</span><span class="si">{:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">V</span><span class="p">),</span> <span class="s2">&quot;   psi=</span><span class="si">{:.3f}</span><span class="s2"> rad&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">psi</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;u_c=</span><span class="si">{:.4f}</span><span class="s2"> m&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u_c</span><span class="p">),</span> <span class="s2">&quot;   u_s=</span><span class="si">{:.4f}</span><span class="s2"> m&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u_s</span><span class="p">))</span>
-
-<span class="c1"># define steady state solution u_p(t) and its time derivative v_p(t)</span>
-<span class="n">up</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">u_c</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">u_s</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
-<span class="n">vp</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="n">u_c</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">u_s</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">omega</span><span class="o">*</span><span class="n">t</span><span class="p">))</span> <span class="o">*</span> <span class="n">omega</span>
-</pre></div>
-
-    </div>
 </div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
 
 <div class="output_area">
 
     
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>V=0.034    psi=3.107 rad
-u_c=-0.0006 m    u_s=-0.0172 m
+<pre>cR = (-I*c*omega + k - m*omega**2)/(2*I*EA*kappa + I*c*omega - k + m*omega**2)
 </pre>
 </div>
 </div>
-
-</div>
-</div>
-
-  </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Anpassen der Gesamtlösung an Anfangsbedingungen, je Dämpfungsgrad (über-/unter-/kritisch)</p>
-
-</div>
-</div>
-</div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># define two solutions u_h(t) and their time derivative v_h(t), depending on discriminant</span>
-<span class="k">if</span> <span class="n">zeta</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
-    <span class="n">omega_1</span> <span class="o">=</span> <span class="n">omega_0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">zeta</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">delta</span> <span class="o">=</span> <span class="n">omega_0</span><span class="o">*</span><span class="n">zeta</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;omega_1=</span><span class="si">{:.3f}</span><span class="s2"> rad/s&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">omega_1</span><span class="p">),</span> <span class="s2">&quot;   delta=</span><span class="si">{:.3f}</span><span class="s2"> 1/s&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">delta</span><span class="p">))</span>
-    <span class="n">uh_1</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">delta</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">omega_1</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
-    <span class="n">uh_2</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">delta</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">omega_1</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
-    <span class="n">vh_1</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">delta</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">*</span><span class="p">(</span> <span class="o">-</span><span class="n">delta</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">omega_1</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="n">omega_1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">omega_1</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="p">)</span>
-    <span class="n">vh_2</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">delta</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">*</span><span class="p">(</span> <span class="o">-</span><span class="n">delta</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">omega_1</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">omega_1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">omega_1</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="p">)</span>
-<span class="k">elif</span> <span class="n">zeta</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-    <span class="n">delta_1</span> <span class="o">=</span> <span class="n">omega_0</span><span class="o">*</span><span class="p">(</span><span class="n">zeta</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">zeta</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
-    <span class="n">delta_2</span> <span class="o">=</span> <span class="n">omega_0</span><span class="o">*</span><span class="p">(</span><span class="n">zeta</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">zeta</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;delta_1=</span><span class="si">{:.3f}</span><span class="s2"> 1/s&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">delta_1</span><span class="p">),</span> <span class="s2">&quot;   delta_2=</span><span class="si">{:.3f}</span><span class="s2"> 1/s&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">delta_2</span><span class="p">)</span> <span class="p">)</span>
-    <span class="n">uh_1</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">delta_1</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
-    <span class="n">uh_2</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">delta_2</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
-    <span class="n">vh_1</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">delta_1</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="n">delta_1</span><span class="p">)</span>
-    <span class="n">vh_2</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">delta_2</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="n">delta_2</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">delta</span> <span class="o">=</span> <span class="n">omega_0</span><span class="o">*</span><span class="n">zeta</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;delta=</span><span class="si">{:.3f}</span><span class="s2"> 1/s&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">delta</span><span class="p">),</span> <span class="s2">&quot;   (critical damping)&quot;</span><span class="p">)</span>
-    <span class="n">uh_1</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">delta</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
-    <span class="n">uh_2</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">delta</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
-    <span class="n">vh_1</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">delta</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">*</span><span class="n">delta</span>
-    <span class="n">vh_2</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">delta</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="n">t</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">delta</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">*</span><span class="n">delta</span>
-    
-<span class="p">[</span><span class="n">C_1</span><span class="p">,</span> <span class="n">C_2</span><span class="p">]</span> <span class="o">=</span> <span class="n">transient_solution</span><span class="p">(</span><span class="n">t_0</span><span class="p">,</span> <span class="n">u_0</span><span class="p">,</span> <span class="n">v_0</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;C_1=</span><span class="si">{:.3f}</span><span class="s2"> m&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">C_1</span><span class="p">),</span> <span class="s2">&quot;C_2=</span><span class="si">{:.3f}</span><span class="s2"> m&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">C_2</span><span class="p">))</span>
-
-<span class="c1"># define adjusted solution of homogenous solution and total solution</span>
-<span class="n">uh</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">C_1</span><span class="o">*</span><span class="n">uh_1</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">C_2</span><span class="o">*</span><span class="n">uh_2</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> 
-<span class="n">u</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span>  <span class="n">uh</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">up</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
 
 <div class="output_area">
 
     
 
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>omega_1=1.818 rad/s    delta=0.167 1/s
-C_1=0.101 m C_2=0.104 m
-</pre>
-</div>
-</div>
 
-</div>
+
+<div class="output_latex output_subarea ">
+$\displaystyle \frac{- i c \omega + k - m \omega^{2}}{2 i EA \kappa + i c \omega - k + m \omega^{2}}$
 </div>
 
-  </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Erstellen diskreter Lösungsverläufe auf einem Zeitraster und grafische Darstellung</p>
-
-</div>
-</div>
 </div>
 
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Nplot</span><span class="o">=</span><span class="mi">5</span>
-<span class="n">t_5P</span> <span class="o">=</span> <span class="n">t_0</span> <span class="o">+</span> <span class="n">Nplot</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="n">omega_0</span>   <span class="c1"># &lt;Nplot&gt; periods of free vibrations (undamped)</span>
-<span class="n">t_sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">t_0</span><span class="p">,</span> <span class="n">t_5P</span> <span class="p">,</span> <span class="mi">250</span><span class="p">)</span>   <span class="c1"># discretization with 250 points in time</span>
-<span class="n">a_sample</span> <span class="o">=</span> <span class="n">a</span><span class="p">(</span><span class="n">t_sample</span><span class="p">)</span>
-<span class="n">uh_sample</span> <span class="o">=</span> <span class="n">uh</span><span class="p">(</span><span class="n">t_sample</span><span class="p">)</span>
-<span class="n">up_sample</span> <span class="o">=</span> <span class="n">up</span><span class="p">(</span><span class="n">t_sample</span><span class="p">)</span>
-<span class="n">u_sample</span> <span class="o">=</span> <span class="n">u</span><span class="p">(</span><span class="n">t_sample</span><span class="p">)</span>
-</pre></div>
-
-    </div>
 </div>
 </div>
 
   </div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_sample</span><span class="p">,</span> <span class="n">uh_sample</span><span class="p">,</span> <span class="s1">&#39;b--&#39;</span><span class="p">,</span> <span class="n">t_sample</span><span class="p">,</span> <span class="n">up_sample</span><span class="p">,</span> <span class="s1">&#39;b:&#39;</span><span class="p">,</span> <span class="n">t_sample</span><span class="p">,</span> <span class="n">u_sample</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">);</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$t$&quot;</span><span class="p">);</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$u$&quot;</span><span class="p">);</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-  </div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_sample</span><span class="p">,</span> <span class="n">a_sample</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">t_sample</span><span class="p">,</span> <span class="n">up_sample</span><span class="p">,</span> <span class="s1">&#39;b:&#39;</span><span class="p">);</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$t$&quot;</span><span class="p">);</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$u, a$&quot;</span><span class="p">);</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-  </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Diskussion:</strong> Wie würden Sie das Einschalten einer Maschine simulieren, d.h. mit welchen Parametern und Anfangsbedingungen?</p>
-
-</div>
-</div>
-</div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">interactive_tau_u_plot</span><span class="p">()</span>   <span class="c1"># nondimensional parameters</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-  </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Parameterbestimmung">Parameterbestimmung<a class="anchor-link" href="#Parameterbestimmung">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Ausschwingversuch">Ausschwingversuch<a class="anchor-link" href="#Ausschwingversuch">&#182;</a></h3>
-</div>
-</div>
-</div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">t1</span> <span class="o">=</span> <span class="mi">0</span>   <span class="c1"># s</span>
-<span class="n">t2</span> <span class="o">=</span> <span class="mf">1.0</span>   <span class="c1"># s</span>
-<span class="n">u1</span> <span class="o">=</span> <span class="mf">0.1</span>   <span class="c1"># m</span>
-<span class="n">u2</span> <span class="o">=</span> <span class="mf">0.08</span>   <span class="c1"># m</span>
-<span class="n">N</span> <span class="o">=</span> <span class="mi">1</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-  </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Was wir im Experiment sehen ist die gedämpfte Eigenfrequenz</p>
-
-</div>
-</div>
-</div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">T_id</span> <span class="o">=</span> <span class="n">t2</span> <span class="o">-</span> <span class="n">t1</span>
-<span class="n">omega_1_id</span> <span class="o">=</span> <span class="mf">2.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="n">T_id</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-  </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Nach einer Periode, wiederholen sich die harmonischen Funktionen, dadurch erfassen wir das Abklingen $e^{-\delta t}$ und nutzen $e^{-\delta t_2}=e^{-\delta(t_1+T)}=e^{-\delta t_1} e^{-\delta T}$</p>
-
-</div>
-</div>
-</div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">LD</span> <span class="o">=</span> <span class="n">log_decrement</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">,</span> <span class="n">u1</span><span class="p">,</span> <span class="n">u2</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
-<span class="n">delta_id</span> <span class="o">=</span> <span class="n">LD</span><span class="o">/</span><span class="n">T_id</span>
-<span class="n">c_id</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">delta_id</span><span class="o">*</span><span class="n">m</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;c_id=</span><span class="si">{:.3f}</span><span class="s2"> Ns/m&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">c_id</span><span class="p">)</span> <span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-  </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Wir erinnern uns an $\omega_1=\omega_0\sqrt{1-\zeta^2}$ und $\delta=\zeta \omega_0$</p>
-
-</div>
-</div>
-</div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">omega_0_id_squared</span> <span class="o">=</span> <span class="n">omega_1_id</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">delta_id</span><span class="o">**</span><span class="mi">2</span>
-<span class="n">k_id</span> <span class="o">=</span> <span class="n">omega_0_id_squared</span><span class="o">*</span><span class="n">m</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;k_id=</span><span class="si">{:.3f}</span><span class="s2"> N/m&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k_id</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-  </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Schwingsaitenwaage">Schwingsaitenwaage<a class="anchor-link" href="#Schwingsaitenwaage">&#182;</a></h3>
-</div>
-</div>
-</div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">omega_measured</span> <span class="o">=</span> <span class="mf">10.0</span>
-<span class="n">zeta_measured</span> <span class="o">=</span> <span class="mf">0.1</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-  </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>ungedämpfte Eigenkreisfrequenz $\omega_0=\sqrt{\frac{k}{m}}$</p>
-
-</div>
-</div>
-</div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">omega_0_measured_1</span> <span class="o">=</span> <span class="n">omega_measured</span>
-<span class="n">k_measured_1</span> <span class="o">=</span> <span class="n">m</span><span class="o">*</span><span class="n">omega_0_measured_1</span><span class="o">**</span><span class="mi">2</span>    
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;k1=</span><span class="si">{:.3f}</span><span class="s2"> N/m&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k_measured_1</span><span class="p">)</span> <span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-  </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>gedämpfte Eigenkreisfrequenz $\omega_1=\omega_0\sqrt{1-\zeta^2}$</p>
-
-</div>
-</div>
-</div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">omega_0_measured_2</span> <span class="o">=</span> <span class="n">omega_measured</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">zeta_measured</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">k_measured_2</span> <span class="o">=</span> <span class="n">m</span><span class="o">*</span><span class="n">omega_0_measured_2</span><span class="o">**</span><span class="mi">2</span>    
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;k2=</span><span class="si">{:.3f}</span><span class="s2"> N/m&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k_measured_2</span><span class="p">),</span> <span class="s2">&quot;   Delta=</span><span class="si">{:2.2f}</span><span class="s2"> %&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">k_measured_2</span><span class="o">-</span><span class="n">k_measured_1</span><span class="p">)</span><span class="o">/</span><span class="n">k_measured_1</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-  </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>maximale Antwortamplitude bei der Anregungsfrequenz $\omega_\mathrm{MA}=\omega_0\sqrt{1-2\zeta^2}$</p>
-
-</div>
-</div>
-</div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">omega_0_measured_3</span> <span class="o">=</span> <span class="n">omega_measured</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">zeta_measured</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">k_measured_3</span> <span class="o">=</span> <span class="n">m</span><span class="o">*</span><span class="n">omega_0_measured_3</span><span class="o">**</span><span class="mi">2</span>    
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;k3=</span><span class="si">{:.3f}</span><span class="s2"> N/m&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k_measured_3</span><span class="p">),</span> <span class="s2">&quot;   Delta=</span><span class="si">{:2.2f}</span><span class="s2"> %&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">k_measured_3</span><span class="o">-</span><span class="n">k_measured_1</span><span class="p">)</span><span class="o">/</span><span class="n">k_measured_1</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-  </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>TODO</strong> Energiebilanz über einen Zyklus Ekin, Epot, Etotal</p>
-
-</div>
-</div>
-</div>
 
   
 
