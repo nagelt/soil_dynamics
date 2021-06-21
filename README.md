@@ -15,3 +15,5 @@ A lot of the content is in German, as the material is used in lectures at a Germ
 [Wellenausbreitung 1D: Pfahl](wave1d_pile.html)
 
 [Wellenausbreitung 1D: Erdbeben](wave1d_earthquake.html)
+
+[Wellenausbreitung 3D: Reflexion](wave3d_reflection.html)
