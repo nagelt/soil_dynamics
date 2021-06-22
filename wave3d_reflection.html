@@ -13448,6 +13448,8 @@ $\displaystyle AP_{in} \kappa_{P} \left(\Lambda + 2 \mu \cos^{2}{\left(\alpha \r
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">solution</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span> <span class="p">[</span><span class="n">sigma_xy_BC</span><span class="p">,</span> <span class="n">sigma_yy_BC</span><span class="p">],</span> <span class="p">[</span><span class="n">AP_re</span><span class="p">,</span> <span class="n">AS_re</span><span class="p">]</span> <span class="p">)</span>
+<span class="k">for</span> <span class="n">sol</span> <span class="ow">in</span> <span class="n">solution</span><span class="p">:</span>
+    <span class="n">solution</span><span class="p">[</span><span class="n">sol</span><span class="p">]</span> <span class="o">=</span> <span class="n">solution</span><span class="p">[</span><span class="n">sol</span><span class="p">]</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
 <span class="n">display</span><span class="p">(</span><span class="n">solution</span><span class="p">)</span>
 </pre></div>
 
@@ -13466,7 +13468,7 @@ $\displaystyle AP_{in} \kappa_{P} \left(\Lambda + 2 \mu \cos^{2}{\left(\alpha \r
 
 
 <div class="output_latex output_subarea ">
-$\displaystyle \left\{ AP_{re} : - \frac{AP_{in} \Lambda \cos{\left(2 \beta \right)}}{\Lambda \cos{\left(2 \beta \right)} + \mu \sin{\left(2 \alpha \right)} \sin{\left(2 \beta \right)} + 2 \mu \cos^{2}{\left(\alpha \right)} \cos{\left(2 \beta \right)}} + \frac{AP_{in} \mu \sin{\left(2 \alpha \right)} \sin{\left(2 \beta \right)}}{\Lambda \cos{\left(2 \beta \right)} + \mu \sin{\left(2 \alpha \right)} \sin{\left(2 \beta \right)} + 2 \mu \cos^{2}{\left(\alpha \right)} \cos{\left(2 \beta \right)}} - \frac{2 AP_{in} \mu \cos^{2}{\left(\alpha \right)} \cos{\left(2 \beta \right)}}{\Lambda \cos{\left(2 \beta \right)} + \mu \sin{\left(2 \alpha \right)} \sin{\left(2 \beta \right)} + 2 \mu \cos^{2}{\left(\alpha \right)} \cos{\left(2 \beta \right)}}, \  AS_{re} : \frac{2 AP_{in} \Lambda \kappa_{P} \sin{\left(2 \alpha \right)}}{\Lambda \kappa_{S} \cos{\left(2 \beta \right)} + \kappa_{S} \mu \sin{\left(2 \alpha \right)} \sin{\left(2 \beta \right)} + 2 \kappa_{S} \mu \cos^{2}{\left(\alpha \right)} \cos{\left(2 \beta \right)}} + \frac{4 AP_{in} \kappa_{P} \mu \sin{\left(2 \alpha \right)} \cos^{2}{\left(\alpha \right)}}{\Lambda \kappa_{S} \cos{\left(2 \beta \right)} + \kappa_{S} \mu \sin{\left(2 \alpha \right)} \sin{\left(2 \beta \right)} + 2 \kappa_{S} \mu \cos^{2}{\left(\alpha \right)} \cos{\left(2 \beta \right)}}\right\}$
+$\displaystyle \left\{ AP_{re} : \frac{AP_{in} \left(- \Lambda \cos{\left(2 \beta \right)} + \mu \sin{\left(2 \alpha \right)} \sin{\left(2 \beta \right)} - 2 \mu \cos^{2}{\left(\alpha \right)} \cos{\left(2 \beta \right)}\right)}{\Lambda \cos{\left(2 \beta \right)} + \mu \sin{\left(2 \alpha \right)} \sin{\left(2 \beta \right)} + 2 \mu \cos^{2}{\left(\alpha \right)} \cos{\left(2 \beta \right)}}, \  AS_{re} : \frac{2 AP_{in} \kappa_{P} \left(\Lambda \sin{\left(2 \alpha \right)} + \mu \sin{\left(2 \alpha \right)} + \frac{\mu \sin{\left(4 \alpha \right)}}{2}\right)}{\kappa_{S} \left(\Lambda \cos{\left(2 \beta \right)} + \mu \cos{\left(2 \beta \right)} + \mu \cos{\left(2 \alpha - 2 \beta \right)}\right)}\right\}$
 </div>
 
 </div>
