@@ -17,3 +17,7 @@ A lot of the content is in German, as the material is used in lectures at a Germ
 [Wellenausbreitung 1D: Erdbeben](wave1d_earthquake.html)
 
 [Wellenausbreitung 3D: Reflexion](wave3d_reflection.html)
+
+[Erdbebenbemessungspektren](elastic_response_spectrum.html)
+
+[Resonant column](resonant_column.html)

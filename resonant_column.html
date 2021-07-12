@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 
 
-<title>wave3d_reflection</title>
+<title>resonant_column</title>
 
 <style type="text/css">
     /*!
@@ -13134,7 +13134,7 @@ Technische Universität Bergakademie Freiberg.</em></p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Elastodynamik-3D">Elastodynamik 3D<a class="anchor-link" href="#Elastodynamik-3D">&#182;</a></h1>
+<h1 id="Praktische-Anwendungen">Praktische Anwendungen<a class="anchor-link" href="#Praktische-Anwendungen">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -13154,16 +13154,13 @@ Technische Universität Bergakademie Freiberg.</em></p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sp</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">fsolve</span>
 <span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">widgets</span>
 <span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span>
-<span class="kn">from</span> <span class="nn">sympy.interactive</span> <span class="kn">import</span> <span class="n">printing</span>
 <span class="kn">import</span> <span class="nn">plot_functions.plot_settings</span>
-<span class="o">%</span><span class="k">run</span> plot_functions/wave3d_reflection_interaction.ipynb
-<span class="n">printing</span><span class="o">.</span><span class="n">init_printing</span><span class="p">()</span>
-<span class="o">%</span><span class="k">load_ext</span> ipydex.displaytools
+<span class="o">%</span><span class="k">run</span> plot_functions/resonant_column_interaction.ipynb
 </pre></div>
 
     </div>
@@ -13180,20 +13177,20 @@ Technische Universität Bergakademie Freiberg.</em></p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Reflexion-einer-P-Welle-am-freien-Rand">Reflexion einer P-Welle am freien Rand<a class="anchor-link" href="#Reflexion-einer-P-Welle-am-freien-Rand">&#182;</a></h2>
+<h2 id="Erste-Eigenfrequenz-eines-Torsionsstabs-mit-Endmasse-(Resonant-Column)">Erste Eigenfrequenz eines Torsionsstabs mit Endmasse (Resonant Column)<a class="anchor-link" href="#Erste-Eigenfrequenz-eines-Torsionsstabs-mit-Endmasse-(Resonant-Column)">&#182;</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="https://github.com/nagelt/soil_dynamics/raw/master/Images/wave3d_freeBC.svg" alt="wave3d_freeBC.svg"></p>
+<p><img src="https://github.com/nagelt/soil_dynamics/raw/master/Images/resonant_column.svg" alt="resonant_column.svg"></p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Variablen für symbolische Rechnung (sympy) deklarieren</p>
+<p>Verhältnis der verteilten Massenträgheit (Stab) zur konzentrierten (Endmasse): $M=\frac{I\rho l}{J_\mathrm{end}}$</p>
 
 </div>
 </div>
@@ -13207,293 +13204,7 @@ Technische Universität Bergakademie Freiberg.</em></p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mu</span><span class="p">,</span> <span class="n">Lambda</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">AP_in</span><span class="p">,</span> <span class="n">AP_re</span><span class="p">,</span> <span class="n">AS_re</span><span class="p">,</span> <span class="n">kappa_P</span><span class="p">,</span> <span class="n">kappa_S</span><span class="p">,</span> <span class="n">c_P</span><span class="p">,</span> <span class="n">c_S</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">,</span><span class="n">t</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;mu Lambda alpha beta AP_in AP_re AS_re kappa_P kappa_S c_P c_S x y z t&#39;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-  </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Phasen der einfallenden P-Welle, der reflektierten P-Welle und der reflektierten SH-Welle</p>
-
-</div>
-</div>
-</div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">phase_Pin</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">I</span><span class="o">*</span><span class="n">kappa_P</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span> <span class="o">+</span> <span class="n">y</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span> <span class="o">-</span> <span class="n">c_P</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
-<span class="n">phase_Pre</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">I</span><span class="o">*</span><span class="n">kappa_P</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span> <span class="o">-</span> <span class="n">y</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span> <span class="o">-</span> <span class="n">c_P</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
-<span class="n">phase_Sre</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">I</span><span class="o">*</span><span class="n">kappa_S</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span> <span class="n">beta</span><span class="p">)</span> <span class="o">-</span> <span class="n">y</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span> <span class="n">beta</span><span class="p">)</span> <span class="o">-</span> <span class="n">c_S</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-  </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Komplexe Darstellung der Wellenausbreitung aller drei Wellen</p>
-
-</div>
-</div>
-</div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">eP_in</span> <span class="o">=</span> <span class="n">AP_in</span> <span class="o">*</span> <span class="n">sp</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">phase_Pin</span><span class="p">)</span>
-<span class="n">eP_re</span> <span class="o">=</span> <span class="n">AP_re</span> <span class="o">*</span> <span class="n">sp</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">phase_Pre</span><span class="p">)</span>
-<span class="n">eS_re</span> <span class="o">=</span> <span class="n">AS_re</span> <span class="o">*</span> <span class="n">sp</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">phase_Sre</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-  </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Veschiebungen (x,y) der drei Wellenfelder</p>
-
-</div>
-</div>
-</div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">uP_in</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">eP_in</span>
-<span class="n">uP_re</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">eP_re</span>
-<span class="n">uS_re</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span> <span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="n">eS_re</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-  </div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">vP_in</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">eP_in</span>
-<span class="n">vP_re</span> <span class="o">=-</span><span class="n">sp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">eP_re</span>
-<span class="n">vS_re</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span> <span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="n">eS_re</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-  </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Spannungen $\sigma_{xy}$ und $\sigma_{yy}$, die relevant für die Reflexion sind</p>
-
-</div>
-</div>
-</div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sigma_xy_Pin</span> <span class="o">=</span> <span class="n">mu</span><span class="o">*</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">uP_in</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">vP_in</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="p">)</span>
-<span class="n">sigma_xy_Pre</span> <span class="o">=</span> <span class="n">mu</span><span class="o">*</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">uP_re</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">vP_re</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="p">)</span>
-<span class="n">sigma_xy_Sre</span> <span class="o">=</span> <span class="n">mu</span><span class="o">*</span><span class="p">(</span> <span class="n">sp</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">uS_re</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">vS_re</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-  </div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sigma_yy_Pin</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">mu</span><span class="o">+</span><span class="n">Lambda</span><span class="p">)</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">vP_in</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="n">Lambda</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">uP_in</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-<span class="n">sigma_yy_Pre</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">mu</span><span class="o">+</span><span class="n">Lambda</span><span class="p">)</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">vP_re</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="n">Lambda</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">uP_re</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-<span class="n">sigma_yy_Sre</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">mu</span><span class="o">+</span><span class="n">Lambda</span><span class="p">)</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">vS_re</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="n">Lambda</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">uS_re</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-  </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Auswertung der Spannungen am Rand</p>
-
-</div>
-</div>
-</div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sigma_xy_BC</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span> <span class="n">sigma_xy_Pin</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">phase_Pin</span><span class="p">)</span><span class="o">/</span><span class="n">sp</span><span class="o">.</span><span class="n">I</span> <span class="o">+</span> <span class="n">sigma_xy_Pre</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">phase_Pre</span><span class="p">)</span><span class="o">/</span><span class="n">sp</span><span class="o">.</span><span class="n">I</span> <span class="o">+</span> <span class="n">sigma_xy_Sre</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">phase_Sre</span><span class="p">)</span><span class="o">/</span><span class="n">sp</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>
-<span class="n">sigma_yy_BC</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span> <span class="n">sigma_yy_Pin</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">phase_Pin</span><span class="p">)</span><span class="o">/</span><span class="n">sp</span><span class="o">.</span><span class="n">I</span> <span class="o">+</span> <span class="n">sigma_yy_Pre</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">phase_Pre</span><span class="p">)</span><span class="o">/</span><span class="n">sp</span><span class="o">.</span><span class="n">I</span> <span class="o">+</span> <span class="n">sigma_yy_Sre</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">phase_Sre</span><span class="p">)</span><span class="o">/</span><span class="n">sp</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-  </div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">sigma_xy_BC</span><span class="p">)</span>
-<span class="n">display</span><span class="p">(</span><span class="n">sigma_yy_BC</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    
-
-
-
-<div class="output_latex output_subarea ">
-$\displaystyle \mu \left(AP_{in} \kappa_{P} \sin{\left(2 \alpha \right)} - AP_{re} \kappa_{P} \sin{\left(2 \alpha \right)} - AS_{re} \kappa_{S} \cos{\left(2 \beta \right)}\right)$
-</div>
-
-</div>
-
-<div class="output_area">
-
-    
-
-
-
-<div class="output_latex output_subarea ">
-$\displaystyle AP_{in} \kappa_{P} \left(\Lambda + 2 \mu \cos^{2}{\left(\alpha \right)}\right) + AP_{re} \kappa_{P} \left(\Lambda + 2 \mu \cos^{2}{\left(\alpha \right)}\right) - AS_{re} \kappa_{S} \mu \sin{\left(2 \beta \right)}$
-</div>
-
-</div>
-
-</div>
-</div>
-
-  </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Gleichungssystem der Randbedingungen (freier Rand) nach den Amplituden der reflektierten Wellen lösen</p>
-
-</div>
-</div>
-</div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">solution</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span> <span class="p">[</span><span class="n">sigma_xy_BC</span><span class="p">,</span> <span class="n">sigma_yy_BC</span><span class="p">],</span> <span class="p">[</span><span class="n">AP_re</span><span class="p">,</span> <span class="n">AS_re</span><span class="p">]</span> <span class="p">)</span>
-<span class="k">for</span> <span class="n">sol</span> <span class="ow">in</span> <span class="n">solution</span><span class="p">:</span>
-    <span class="n">solution</span><span class="p">[</span><span class="n">sol</span><span class="p">]</span> <span class="o">=</span> <span class="n">solution</span><span class="p">[</span><span class="n">sol</span><span class="p">]</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
-<span class="n">display</span><span class="p">(</span><span class="n">solution</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    
-
-
-
-<div class="output_latex output_subarea ">
-$\displaystyle \left\{ AP_{re} : \frac{AP_{in} \left(- \Lambda \cos{\left(2 \beta \right)} + \mu \sin{\left(2 \alpha \right)} \sin{\left(2 \beta \right)} - 2 \mu \cos^{2}{\left(\alpha \right)} \cos{\left(2 \beta \right)}\right)}{\Lambda \cos{\left(2 \beta \right)} + \mu \sin{\left(2 \alpha \right)} \sin{\left(2 \beta \right)} + 2 \mu \cos^{2}{\left(\alpha \right)} \cos{\left(2 \beta \right)}}, \  AS_{re} : \frac{2 AP_{in} \kappa_{P} \left(\Lambda \sin{\left(2 \alpha \right)} + \mu \sin{\left(2 \alpha \right)} + \frac{\mu \sin{\left(4 \alpha \right)}}{2}\right)}{\kappa_{S} \left(\Lambda \cos{\left(2 \beta \right)} + \mu \cos{\left(2 \beta \right)} + \mu \cos{\left(2 \alpha - 2 \beta \right)}\right)}\right\}$
-</div>
-
-</div>
-
-</div>
-</div>
-
-  </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Grafische Darstellung der Reflexion</p>
-
-</div>
-</div>
-</div>
-
-  
-
-  <div class="
-      cell border-box-sizing code_cell rendered">
-    <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">interactive_reflection_plot</span><span class="p">()</span>  
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">resonant_column_plot</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -13524,11 +13235,28 @@ $\displaystyle \left\{ AP_{re} : \frac{AP_{in} \left(- \Lambda \cos{\left(2 \bet
   </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Frage: In welchem Fall wird nur eine P-Welle reflektiert und in welchem nur eine S-Welle?</p>
+<p>Aus $X=\kappa l$ folgt die Eigenkreisfrequenz $\omega=\kappa c=X \frac{c}{l}$</p>
 
 </div>
 </div>
 </div>
+
+  
+
+  <div class="
+      cell border-box-sizing code_cell rendered">
+    <div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+  </div>
 
 
 
