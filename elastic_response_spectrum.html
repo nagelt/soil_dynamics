@@ -13171,7 +13171,7 @@ Technische Universität Bergakademie Freiberg.</em></p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>abschnittsweise definierte Funktion</p>
+<p>abschnittsweise definiert</p>
 
 </div>
 </div>
@@ -13305,7 +13305,7 @@ Technische Universität Bergakademie Freiberg.</em></p>
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">h</span> <span class="o">=</span> <span class="mf">6.0</span>
 <span class="n">Ct</span> <span class="o">=</span> <span class="mf">0.05</span>
 <span class="n">T1</span> <span class="o">=</span> <span class="n">Ct</span><span class="o">*</span><span class="n">h</span><span class="o">**</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span> 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;T1=</span><span class="si">{}</span><span class="s2"> s&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">T1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;T1=</span><span class="si">{:6.4f}</span><span class="s2"> s&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">T1</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -13321,7 +13321,7 @@ Technische Universität Bergakademie Freiberg.</em></p>
     
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>T1=0.19168293127388175 s
+<pre>T1=0.1917 s
 </pre>
 </div>
 </div>
@@ -13350,7 +13350,7 @@ Technische Universität Bergakademie Freiberg.</em></p>
 <span class="n">m</span> <span class="o">=</span> <span class="mf">80e3</span>
 <span class="n">gamma</span> <span class="o">=</span> <span class="mf">1.0</span>
 <span class="n">F1</span> <span class="o">=</span> <span class="n">Sd1</span><span class="o">*</span><span class="n">m</span><span class="o">*</span><span class="n">gamma</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;F1=</span><span class="si">{}</span><span class="s2"> kN, q1max=</span><span class="si">{}</span><span class="s2"> kN/m&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">F1</span><span class="o">/</span><span class="mf">1e3</span><span class="p">,</span> <span class="n">F1</span><span class="o">*</span><span class="mf">2e-3</span><span class="o">/</span><span class="n">h</span><span class="p">))</span> 
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;F1=</span><span class="si">{:6.4f}</span><span class="s2"> kN, q1max=</span><span class="si">{:6.4f}</span><span class="s2"> kN/m&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">F1</span><span class="o">/</span><span class="mf">1e3</span><span class="p">,</span> <span class="n">F1</span><span class="o">*</span><span class="mf">2e-3</span><span class="o">/</span><span class="n">h</span><span class="p">))</span> 
 </pre></div>
 
     </div>
@@ -13366,7 +13366,7 @@ Technische Universität Bergakademie Freiberg.</em></p>
     
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>F1=160.0 kN, q1max=53.333333333333336 kN/m
+<pre>F1=160.0000 kN, q1max=53.3333 kN/m
 </pre>
 </div>
 </div>
