@@ -21,3 +21,5 @@ A lot of the content is in German, as the material is used in lectures at a Germ
 [Erdbebenbemessungspektren](elastic_response_spectrum.html)
 
 [Resonant column](resonant_column.html)
+
+[Terrestrische Brachistochrone](terrestrial_brachistochrone.html)
