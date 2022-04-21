@@ -3,6 +3,6 @@ Interactive python scripts supplementing the course _soil dynamics_ at TU Bergak
 
 Same structure as lecture:
 - basics,
-- waves,
+- wave propagation,
 - applications,
 - extra material.
