@@ -13322,7 +13322,8 @@ Technische Universität Bergakademie Freiberg.</em></p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sp</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">Math</span><span class="p">,</span> <span class="n">Latex</span>
+<span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sp</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">widgets</span>
@@ -13335,24 +13336,6 @@ Technische Universität Bergakademie Freiberg.</em></p>
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>The ipydex.displaytools extension is already loaded. To reload it, use:
-  %reload_ext ipydex.displaytools
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -13577,8 +13560,8 @@ Technische Universität Bergakademie Freiberg.</em></p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">sigma_xy_BC</span><span class="p">)</span>
-<span class="n">display</span><span class="p">(</span><span class="n">sigma_yy_BC</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Math</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\sigma_</span><span class="si">{xy}</span><span class="s1">^\mathrm</span><span class="si">{BC}</span><span class="s1">=&#39;</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">latex</span><span class="p">(</span><span class="n">sigma_xy_BC</span><span class="p">)))</span> 
+<span class="n">display</span><span class="p">(</span><span class="n">Math</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\sigma_</span><span class="si">{yy}</span><span class="s1">^\mathrm</span><span class="si">{BC}</span><span class="s1">=&#39;</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">latex</span><span class="p">(</span><span class="n">sigma_yy_BC</span><span class="p">)))</span> 
 </pre></div>
 
     </div>
@@ -13596,7 +13579,7 @@ Technische Universität Bergakademie Freiberg.</em></p>
 
 
 <div class="output_latex output_subarea ">
-$\displaystyle \mu \left(AP_{in} \kappa_{P} \sin{\left(2 \alpha \right)} - AP_{re} \kappa_{P} \sin{\left(2 \alpha \right)} - AS_{re} \kappa_{S} \cos{\left(2 \beta \right)}\right)$
+$\displaystyle \sigma_{xy}^\mathrm{BC}=\mu \left(AP_{in} \kappa_{P} \sin{\left(2 \alpha \right)} - AP_{re} \kappa_{P} \sin{\left(2 \alpha \right)} - AS_{re} \kappa_{S} \cos{\left(2 \beta \right)}\right)$
 </div>
 
 </div>
@@ -13608,7 +13591,7 @@ $\displaystyle \mu \left(AP_{in} \kappa_{P} \sin{\left(2 \alpha \right)} - AP_{r
 
 
 <div class="output_latex output_subarea ">
-$\displaystyle AP_{in} \kappa_{P} \left(\Lambda + 2 \mu \cos^{2}{\left(\alpha \right)}\right) + AP_{re} \kappa_{P} \left(\Lambda + 2 \mu \cos^{2}{\left(\alpha \right)}\right) - AS_{re} \kappa_{S} \mu \sin{\left(2 \beta \right)}$
+$\displaystyle \sigma_{yy}^\mathrm{BC}=AP_{in} \kappa_{P} \left(\Lambda + 2 \mu \cos^{2}{\left(\alpha \right)}\right) + AP_{re} \kappa_{P} \left(\Lambda + 2 \mu \cos^{2}{\left(\alpha \right)}\right) - AS_{re} \kappa_{S} \mu \sin{\left(2 \beta \right)}$
 </div>
 
 </div>
@@ -13654,7 +13637,7 @@ $\displaystyle AP_{in} \kappa_{P} \left(\Lambda + 2 \mu \cos^{2}{\left(\alpha \r
 
 
 <div class="output_latex output_subarea ">
-$\displaystyle \left\{ AP_{re} : \frac{AP_{in} \left(- \Lambda \cos{\left(2 \beta \right)} + \mu \sin{\left(2 \alpha \right)} \sin{\left(2 \beta \right)} - 2 \mu \cos^{2}{\left(\alpha \right)} \cos{\left(2 \beta \right)}\right)}{\Lambda \cos{\left(2 \beta \right)} + \mu \sin{\left(2 \alpha \right)} \sin{\left(2 \beta \right)} + 2 \mu \cos^{2}{\left(\alpha \right)} \cos{\left(2 \beta \right)}}, \  AS_{re} : \frac{2 AP_{in} \kappa_{P} \left(\Lambda \sin{\left(2 \alpha \right)} + \mu \sin{\left(2 \alpha \right)} + \frac{\mu \sin{\left(4 \alpha \right)}}{2}\right)}{\kappa_{S} \left(\Lambda \cos{\left(2 \beta \right)} + \mu \cos{\left(2 \beta \right)} + \mu \cos{\left(2 \alpha - 2 \beta \right)}\right)}\right\}$
+$\displaystyle \left\{ AP_{re} : \frac{AP_{in} \left(\mu \sin{\left(2 \alpha \right)} \sin{\left(2 \beta \right)} - \left(\Lambda + 2 \mu \cos^{2}{\left(\alpha \right)}\right) \cos{\left(2 \beta \right)}\right)}{\mu \sin{\left(2 \alpha \right)} \sin{\left(2 \beta \right)} + \left(\Lambda + 2 \mu \cos^{2}{\left(\alpha \right)}\right) \cos{\left(2 \beta \right)}}, \  AS_{re} : \frac{2 AP_{in} \kappa_{P} \left(\Lambda + 2 \mu \cos^{2}{\left(\alpha \right)}\right) \sin{\left(2 \alpha \right)}}{\kappa_{S} \left(\mu \sin{\left(2 \alpha \right)} \sin{\left(2 \beta \right)} + \left(\Lambda + 2 \mu \cos^{2}{\left(\alpha \right)}\right) \cos{\left(2 \beta \right)}\right)}\right\}$
 </div>
 
 </div>
