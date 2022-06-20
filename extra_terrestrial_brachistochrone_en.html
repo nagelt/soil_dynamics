@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 
 
-<title>extra_terrestrial_brachistochrone</title>
+<title>extra_terrestrial_brachistochrone_en</title>
 
 <style type="text/css">
     /*!
@@ -13302,15 +13302,13 @@ Technische Universität Bergakademie Freiberg.</em></p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Pfade-mechanischer-Raumwellen-und-die-terrestrische-Brachistochrone">Pfade mechanischer Raumwellen und die terrestrische Brachistochrone<a class="anchor-link" href="#Pfade-mechanischer-Raumwellen-und-die-terrestrische-Brachistochrone">&#182;</a></h1>
+<h1 id="Paths-of-seismic-body-waves-and-the-terrestrial-brachistochrone">Paths of seismic body waves and the terrestrial brachistochrone<a class="anchor-link" href="#Paths-of-seismic-body-waves-and-the-terrestrial-brachistochrone">&#182;</a></h1>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Das Fermatsche Prinzip besagt, dass sich Licht, im Allgemeinen Wellen, auf dem Weg der kürzesten Laufzeit ausbreiten. 
-Für die Ausbreitungsgeschwindigkeit von P- und S-Wellen in elastischen Medien gilt
-$c_\mathrm{P}, c_\mathrm{S} \propto \sqrt{\mu}$, wobei $\mu$ für den Schubmodul steht.</p>
+<p>The following derivation is very short -- more information can be found in the lecture material.</p>
 
 </div>
 </div>
@@ -13340,43 +13338,48 @@ $c_\mathrm{P}, c_\mathrm{S} \propto \sqrt{\mu}$, wobei $\mu$ für den Schubmodul
   </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Vorbetrachtung-in-kartesischen-Koordinaten-(klassisches-Brachistrochronenproblem)">Vorbetrachtung in kartesischen Koordinaten (klassisches Brachistrochronenproblem)<a class="anchor-link" href="#Vorbetrachtung-in-kartesischen-Koordinaten-(klassisches-Brachistrochronenproblem)">&#182;</a></h2>
+<h2 id="Preliminary-considerations-in-Cartesian-Coordinates-(classical-brachistochrone)">Preliminary considerations in Cartesian Coordinates (classical brachistochrone)<a class="anchor-link" href="#Preliminary-considerations-in-Cartesian-Coordinates-(classical-brachistochrone)">&#182;</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Herleitung nach <a href="https://www.google.de/books/edition/_/uVSYswEACAAJ?hl=de&amp;sa=X&amp;ved=2ahUKEwiE_I3G-ofyAhUBD-wKHdOeClUQ8fIDMBF6BAgIEAM">Mark Levi: Classical Mechanics with Calculus of Variations and Optimal Control</a> chapter 5.5</p>
+<p>Following the textbook <a href="https://www.google.de/books/edition/_/uVSYswEACAAJ?hl=de&amp;sa=X&amp;ved=2ahUKEwiE_I3G-ofyAhUBD-wKHdOeClUQ8fIDMBF6BAgIEAM">Mark Levi: Classical Mechanics with Calculus of Variations and Optimal Control</a>, chapter 5.5.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Für den tiefenabhängigen Schubmodul wird in kartesischen Koordinaten oft die Näherung 
-$\mu \propto p \propto z$
-verwendet. Somit gilt $c \propto \sqrt{z}$.
-Damit ist die Bahnberechnung mathematisch äquivalent zur Brachistochrone, denn für die Geschwindigkeit eines Massenpunkts im Gravitationsfeld gilt in kartesischen Koordinaten ebenfalls 
-$v\propto \sqrt{z}$. 
-Die Lösung des klassischen Brachistrochronenproblems ist eine Zykloide, die Rollkurve eines Kreises entlang einer Geraden, wie wir im Folgenden rekapitulieren wollen.</p>
+<p>The Fermat principle states, that light -- or more generally -- waves, travel along paths of shortest time.
+For the velocity of P- and S-waves in elastic media $c_\mathrm{P}, c_\mathrm{S} \propto \sqrt{\mu}$ holds, where $\mu$ denotes shear modulus.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Aus der Energieerhaltung eines Massenpunktes im Schwerefeld folgt seine Geschwindigkeit
+<p>It is customary to approximate the depth-dependent shear modulus by $\mu \propto p \propto z$, thus $c \propto \sqrt{z}$ holds.
+Consequently the path calculation of seismic waves is mathematically equivalent to the brachistochrone, since for the velocity of a point mass in a gravitational field $v\propto \sqrt{z}$ holds, too. 
+The first solution we are going to discuss is a cycloid, the curve on a circle rolling along a straight line.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Conservation of energy of a point mass in a gravitational field leads to its height-dependent velocity
 \begin{equation}
 v = \sqrt{2g y},
 \end{equation}
-wobei die $y$-Koordinate abwärts gerichtet sei.</p>
+where the $y$-coordinate points downwards.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Die Zeit, um einen bestimmten Weg zurückzulegen, berechnet sich
+<p>The travel time for a certain path depends on the velocity
 \begin{equation}
 T = \int_\mathrm{A}^\mathrm{B} \frac{\mathrm{d}s}{v}  = \int_\mathrm{A}^\mathrm{B} \frac{\mathrm{d}s}{\sqrt{2gy}}.
 \end{equation}</p>
@@ -13386,47 +13389,51 @@ T = \int_\mathrm{A}^\mathrm{B} \frac{\mathrm{d}s}{v}  = \int_\mathrm{A}^\mathrm{
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Wie im Folgenden gezeigt werden soll besitzen die Extremalen eines Funktionals der Struktur
+<p>We are going to show next, that the extremals of a functional with the structure
 \begin{equation}
 \int_\mathrm{A}^\mathrm{B} F(y)\, \mathrm{d}s = \int_\mathrm{x_A}^\mathrm{x_B} \underbrace{F(y) \sqrt{1+y'^2}}_{L} \mathrm{d}x.
 \end{equation}
-die Eigenschaft
+satisfy the relation
 \begin{equation}
 F(y)\sin\alpha = \mathrm{const.}
-\end{equation}</p>
+\end{equation}
+where the definition of the slope $\alpha$ of the path can be read from the figure below.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Denn gemäß Noethers Theorem folgt aus Integranden der Struktur $L(y,y')$ die Erhaltungsgröße
+<p>Applying Noethers theorem to a Lagrangian $L(y,y')$ that does not explicitely depend on time, one can define the Hamiltonian
 \begin{equation}
 H = y' \frac{\partial L}{\partial y'} - L = \mathrm{const.}.
 \end{equation}
-Für $L(y,y')=F(y)\sqrt{1+y'^2}$ folgt konkret
+Specifically for
+For $L(y,y')=F(y)\sqrt{1+y'^2}$ we can write
 \begin{equation}
 H = y'F(y)\frac{y'}{\sqrt{1+y'^2}}-F(y)\sqrt{1+y'^2} = -\frac{F(y)}{\sqrt{1+y'^2}}
 \end{equation}
-und durch Einsetzen von $y'=\frac{\cos\alpha}{\sin\alpha}$, mit Winkel $\alpha$ zur Vertikalen, bestätigen wir die Behauptung.</p>
+and by expressing the slope via the angle with the vertical $y'=\frac{\cos\alpha}{\sin\alpha}$, we arrive at our proposition.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Im Brachistochronenproblem, nach Ausklammern der Konstanten $1/\sqrt{2g}$, bleibt $F(y)=\frac{1}{\sqrt{y}}$ im Integral und für dessen Extremale gilt
+<p>For the classical brachistochrone, after factoring out the constant $1/\sqrt{2g}$, $F(y)=\frac{1}{\sqrt{y}}$ remains inside the integral and
 \begin{align}
    \frac{\sin\alpha}{\sqrt{y}} &amp;= \frac{1}{\sqrt{2r}}, \\
    \sqrt{y} &amp;= \sqrt{2r} \sin\alpha.
-\end{align}</p>
+\end{align}
+holds for the extremal.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Wie die Skizze zeigt, beschreibt diese Kurve die Zykloide beim Abrollen eines Kreises mit Durchmesser $2r$ (Geschwindigkeit senkrecht zu Ortsvektor zum Momentanpol, Satz des Thales). 
+<p>The next sketch illustrates this curve as a cycloid, which is generated by a circle of diameter $2r$.
+By Thales theorem, the velocity is perpendicular to the position vector. The circle radius is determined by the location of start- and end-point.
 <img src="https://github.com/nagelt/soil_dynamics/raw/master/Images/classical_brachistochrone.svg" alt="classical_brachistochrone.svg"></p>
 
 </div>
@@ -13434,63 +13441,67 @@ und durch Einsetzen von $y'=\frac{\cos\alpha}{\sin\alpha}$, mit Winkel $\alpha$ 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Der Durchmesser des abrollenden Kreises ist durch die Start- und Endpunkte der Bahn festgelegt.</p>
+<h2 id="Switching-to-polar-coordinates-(terrestrial-brachistochrone)">Switching to polar coordinates (terrestrial brachistochrone)<a class="anchor-link" href="#Switching-to-polar-coordinates-(terrestrial-brachistochrone)">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Inspired by <a href="https://www.youtube.com/watch?v=_KIvpr3X_bU">Matthew Van Koevering: Terrestrial Brachistochrone</a></p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Rechnung-in-Polarkoordinaten-(terrestrische-Brachistochrone)">Rechnung in Polarkoordinaten (terrestrische Brachistochrone)<a class="anchor-link" href="#Rechnung-in-Polarkoordinaten-(terrestrische-Brachistochrone)">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Inspiriert durch <a href="https://www.youtube.com/watch?v=_KIvpr3X_bU">Matthew Van Koevering: Terrestrial Brachistochrone</a></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Beim Übergang zu Polarkoordinaten (die Erde ist eine Kugel) wird das gleiche Zeitfunktional
+<p>Considering earth a sphere and working on grand circles we switch to polar coordinates for convenience. The travel time is once again determined by the functional
 \begin{equation}
-T=\int_\mathrm{A}^\mathrm{B} \frac{\mathrm{d} s}{v(r)}
+T=\int_\mathrm{A}^\mathrm{B} \frac{\mathrm{d} s}{v(r)}.
 \end{equation}
-minimiert, aber im Vergleich zu kartesischen Koordinaten mit einem anderen Kurvenelement und anderer tiefenabhängiger Geschwindigkeit
+In comparison to the previous case, arc-length and depth-dependent velocity differ
 \begin{align}
 \mathrm{d} s &amp;= \sqrt{(\mathrm{d} r)^2+(r\mathrm{d}\theta)^2}, \\
 v &amp;= C\sqrt{R^2 - r^2},
 \end{align}
-wobei im Brachistochronenproblem $C=\sqrt{g/R}$ von der Erdbeschleunigung $g$ und Erdradius $R$ abhängt.</p>
+where $C=\sqrt{g/R}$ inserts gravitational acceleration $g$ and earth radius $R$.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Der Integrand des zu minimierenden Funktionals
+<p>As before, the Lagrangian in the functional
 \begin{equation}
 T=\frac{1}{C}\int_{\theta_\mathrm{A}}^{\theta_\mathrm{B}} \underbrace{\sqrt{\frac{ (\mathrm{d} r/\mathrm{d} \theta)^2 +r^2}{R^2-r^2}}}_{L} \mathrm{d} \theta
 \end{equation}
-ist vom Typ $L(r,r')$.</p>
+is of structure $L(r,r')$.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Anmerkung:</strong> Die Geschwindigkeitsabhängigkeit eines Massenpunkts im Innern einer homogenen Kugel ist gleich der einer druckabhängigen Wellengeschwindigkeit, d.h. das Brachistochronenproblem ist mathematisch gleich dem der Ausbreitung seismischer Raumwellen.</p>
+<p><strong>Remark:</strong> The velocity dependence on depth of a point mass inside a heavy sphere is the same as for depth-dependent waves in an elastic medium with depth-dependent stiffness.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Ausgangspunkt ist <a href="https://doi.org/10.1080/07468342.2018.1411655">Newtons Schalentheorem</a>
+<p>For the terrestrial brachistochrone we obtain the force on the point mass from <a href="https://doi.org/10.1080/07468342.2018.1411655">Newtons shell theorem</a>
 \begin{equation}
-F_g = \frac{mgr}{R}.
+F_g = \frac{mgr}{R}
+\end{equation}
+where $r$ denotes the radius from earth center to the point mass.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>By conservation of energy and the potential energy of a point mass $V=\frac{1}{2}\frac{mg}{R}r^2$ initially at rest at the earth surface $r=R$, we obtain the velocity
+\begin{equation}
+v(r) = \sqrt{\frac{g}{R}}\sqrt{R^2 - r^2}.
 \end{equation}</p>
 
 </div>
@@ -13498,25 +13509,17 @@ F_g = \frac{mgr}{R}.
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Zum Massenpunkt gehört die potentielle Energie $V=\frac{1}{2}\frac{mg}{R}r^2$ und ausgehend vom Ruhezustand an der Eroberfläche $r=R$ folgt für die Brachistochrone
+<p>Assuming a constant mass density $\rho$, the depth-dependent hydrostatic pressure follows
 \begin{equation}
-v(r) = \sqrt{\frac{g}{R}}\sqrt{R^2 - r^2}
-\end{equation}</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Für die Wellenausbreitung nehmen wir eine konstante Dichte $\rho$ an. Für den tiefenabhängigen hydrostatischen Druck gilt dann mit der Gravitationskonstante $G$
-\begin{equation}
-p = \int_r^R \frac{4\pi}{3} G \rho^2r\,\mathrm{d}r = \frac{2\pi}{3}G\rho^2(R^2 - r^2)
+p = \int_r^R \frac{4\pi}{3} G \rho^2r\,\mathrm{d}r = \frac{2\pi}{3}G\rho^2(R^2 - r^2),
 \end{equation}
-Unter Annahme eines linearen Zusammenhangs zwischen Druck und Schubmodul $\mu=\frac{1}{2}C_1 p$ erhalten wir für die Geschwindigkeit der S-Wellen einen anderen konstanten Faktor als im Brachistochronenproblem, aber der gleichen Struktur
+where $G$ denotes the gravitational constant.
+Further assuming a linear relation between pressure and shear modulus $\mu=\frac{1}{2}C_1 p$ we obtain for the velocity of S-wave
 \begin{equation}
-c_\mathrm{S} = \sqrt{\frac{\mu}{\rho}} = \sqrt{C_1 \frac{\pi}{3}G\rho}\,\sqrt{R^2 - r^2}.
+c_\mathrm{S} = \sqrt{\frac{\mu}{\rho}} = \sqrt{C_1 \frac{\pi}{3}G\rho}\,\sqrt{R^2 - r^2},
 \end{equation}
-Die Geschwindigkeit der P-Wellen $c_\mathrm{P}$ unterscheidet sich von $c_\mathrm{S}$ nur um einen konstanten Faktor.</p>
+which is of different value, but of same structure as in the terrestrial brachistochrone problem.
+The velocity of P-waves $c_\mathrm{P}$ differs from $c_\mathrm{S}$ only by a constant factor.</p>
 
 </div>
 </div>
@@ -13540,7 +13543,7 @@ Die Geschwindigkeit der P-Wellen $c_\mathrm{P}$ unterscheidet sich von $c_\mathr
   </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Wir beginnen mit dem Integranden des Zeitfunktionals, wobei die Konstanten ausgeklammert werden, die Bahn ist von ihnen unabhängig.</p>
+<p>We start with the integrand of the time functional, where the constants have been excluded, since they do not affect the paths</p>
 
 </div>
 </div>
@@ -13564,8 +13567,9 @@ Die Geschwindigkeit der P-Wellen $c_\mathrm{P}$ unterscheidet sich von $c_\mathr
   </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Anstelle der Euler-Lagrange Gleichung nutzen wir die Erhaltungsgröße $H=r' \frac{\partial L}{\partial r'} - L$ und wählen als Bezugspunkt den tiefsten Punkt der Bahn $r=r_0$ 
-mit $r'(r_0)=0$</p>
+<p>Instead of evaluating the Euler-Lagrange equations, we take advantage of the first integral
+$H=r' \frac{\partial L}{\partial r'} - L$ and choose the lowest point $r=r_0$ as reference.
+Since the lowest point is a minimum, we have $r'(r_0)=0$.</p>
 
 </div>
 </div>
@@ -13582,7 +13586,7 @@ mit $r'(r_0)=0$</p>
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">H</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span> <span class="n">rt</span><span class="o">*</span><span class="n">L</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">rt</span><span class="p">)</span> <span class="o">-</span> <span class="n">L</span> <span class="p">)</span>
 <span class="n">H0</span> <span class="o">=</span> <span class="n">H</span><span class="o">.</span><span class="n">subs</span><span class="p">([(</span><span class="n">r</span><span class="p">,</span> <span class="n">r0</span><span class="p">),</span> <span class="p">(</span><span class="n">rt</span><span class="p">,</span> <span class="mi">0</span><span class="p">)])</span>
 <span class="n">TB_condition</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span> <span class="n">H</span> <span class="o">-</span> <span class="n">H0</span> <span class="p">)</span>   <span class="c1"># equals zero</span>
-<span class="n">display</span><span class="p">(</span><span class="n">TB_condition</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Math</span><span class="p">(</span><span class="s1">&#39;H-H_0=0=&#39;</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">latex</span><span class="p">(</span><span class="n">TB_condition</span><span class="p">)))</span>
 </pre></div>
 
     </div>
@@ -13600,7 +13604,7 @@ mit $r'(r_0)=0$</p>
 
 
 <div class="output_latex output_subarea ">
-$\displaystyle \frac{- r^{2} \sqrt{\frac{r^{2} + rt^{2}}{R^{2} - r^{2}}} + \sqrt{\frac{r_{0}^{2}}{R^{2} - r_{0}^{2}}} \left(r^{2} + rt^{2}\right)}{r^{2} + rt^{2}}$
+$\displaystyle H-H_0=0=\frac{- r^{2} \sqrt{\frac{r^{2} + rt^{2}}{R^{2} - r^{2}}} + \sqrt{\frac{r_{0}^{2}}{R^{2} - r_{0}^{2}}} \left(r^{2} + rt^{2}\right)}{r^{2} + rt^{2}}$
 </div>
 
 </div>
@@ -13611,7 +13615,7 @@ $\displaystyle \frac{- r^{2} \sqrt{\frac{r^{2} + rt^{2}}{R^{2} - r^{2}}} + \sqrt
   </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Durch Umstellen erhalten wir als Extremalbedingung für die Bahn der kürzesten Laufzeit</p>
+<p>We can rearrange this condition as an ordinary differential equation</p>
 
 </div>
 </div>
@@ -13625,9 +13629,11 @@ $\displaystyle \frac{- r^{2} \sqrt{\frac{r^{2} + rt^{2}}{R^{2} - r^{2}}} + \sqrt
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">TB_ode</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">TB_condition</span><span class="p">,</span> <span class="n">rt</span><span class="p">)</span>   <span class="c1"># quadratic equation has two solutions</span>
-<span class="n">display</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">TB_ode</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>   <span class="c1"># backward</span>
-<span class="n">display</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">TB_ode</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>   <span class="c1"># forward</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">TB_ode</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">TB_condition</span><span class="p">,</span> <span class="n">rt</span><span class="p">)</span>   <span class="c1"># quadratic equation has two solutions </span>
+<span class="n">TB_ode_backward</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">TB_ode</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">TB_ode_forward</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">TB_ode</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Math</span><span class="p">(</span><span class="s2">&quot;r&#39;=&quot;</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">latex</span><span class="p">(</span><span class="n">TB_ode_backward</span><span class="p">)))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Math</span><span class="p">(</span><span class="s2">&quot;r&#39;=&quot;</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">latex</span><span class="p">(</span><span class="n">TB_ode_forward</span><span class="p">)))</span>
 </pre></div>
 
     </div>
@@ -13645,7 +13651,7 @@ $\displaystyle \frac{- r^{2} \sqrt{\frac{r^{2} + rt^{2}}{R^{2} - r^{2}}} + \sqrt
 
 
 <div class="output_latex output_subarea ">
-$\displaystyle - \sqrt{\frac{R^{2} r^{2} \left(r^{2} - r_{0}^{2}\right)}{r_{0}^{2} \left(R^{2} - r^{2}\right)}}$
+$\displaystyle r'=- \sqrt{\frac{R^{2} r^{2} \left(r^{2} - r_{0}^{2}\right)}{r_{0}^{2} \left(R^{2} - r^{2}\right)}}$
 </div>
 
 </div>
@@ -13657,7 +13663,7 @@ $\displaystyle - \sqrt{\frac{R^{2} r^{2} \left(r^{2} - r_{0}^{2}\right)}{r_{0}^{
 
 
 <div class="output_latex output_subarea ">
-$\displaystyle \sqrt{\frac{R^{2} r^{2} \left(- r^{2} + r_{0}^{2}\right)}{r_{0}^{2} \left(- R^{2} + r^{2}\right)}}$
+$\displaystyle r'=\sqrt{\frac{R^{2} r^{2} \left(- r^{2} + r_{0}^{2}\right)}{r_{0}^{2} \left(- R^{2} + r^{2}\right)}}$
 </div>
 
 </div>
@@ -13668,28 +13674,26 @@ $\displaystyle \sqrt{\frac{R^{2} r^{2} \left(- r^{2} + r_{0}^{2}\right)}{r_{0}^{
   </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Formal lässt sich die gewöhnliche Differentialgleichung 
-\begin{equation}
-r' = \frac{Rr}{r_0}\sqrt{\frac{r^2-r_0^2}{R^2-r^2}}.
-\end{equation}
-durch Trennung der Variablen und Integration lösen. Weil sich dabei schwierige Integrale anbahnen, versuchen wir sie mit <em>experimenteller Numerik</em> zu untersuchen und aus der numerischen Lösung weitere Einsichten zu gewinnen.</p>
+<p>Formally, we could solve these ODEs by separation of variables.
+However, we would have to solve difficult integrals. In contrast, numerical integrators are easily to run.
+So we give <em>experimental numerics</em> a try hoping it leads us to a qualified guess for the sought function.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Numerische-L&#246;sung-der-bahnbestimmenden-Differentialgleichung">Numerische L&#246;sung der bahnbestimmenden Differentialgleichung<a class="anchor-link" href="#Numerische-L&#246;sung-der-bahnbestimmenden-Differentialgleichung">&#182;</a></h3>
+<h3 id="Experimental-numerics">Experimental numerics<a class="anchor-link" href="#Experimental-numerics">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Bevor wir numerisch integrieren, drei Überlegungen vorab</p>
+<p>Let's re-iterate three thoughts on the solution, before running the ODE-solver</p>
 <ul>
-<li>aufgrund der Zeitsymmetrie erwarten wir eine symmetrische Bahn, wobei der tiefste Punkt $r=r_0$ in der Mitte liegt.</li>
-<li>für $r_0=0$ erwarten wir eine gerade Linie durch den Erdmittelpunkt und für $0&lt;r_0&lt;R$ eine Winkeldifferenz $0&lt;|\theta_A-\theta_B|&lt;\pi$.</li>
-<li>an der Erdoberfläche $r=R$ wird der Anstieg der Bahn unendlich groß (senkrechter Ein- und Ausstieg)</li>
+<li>by time symmetry we expect a symmetric path with the lowest point $r=r_0$ in the middle,</li>
+<li>for $r_0=0$ we expect a straight line through earth center and for $0&lt;r_0&lt;R$ an angle difference $0&lt;|\theta_A-\theta_B|&lt;\pi$,</li>
+<li>for $r\to R$ the slope approaches infinity, meaning a vertical path on start and arrival, we start or stop close to this point to avoid division by zero.</li>
 </ul>
 
 </div>
@@ -13697,7 +13701,7 @@ durch Trennung der Variablen und Integration lösen. Weil sich dabei schwierige 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Differentialgleichung der terrestrischen Brachistochrone</p>
+<p>For the ODE-solver we need to provide the ODE as a function</p>
 
 </div>
 </div>
@@ -13715,7 +13719,7 @@ durch Trennung der Variablen und Integration lösen. Weil sich dabei schwierige 
     <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">Rn</span><span class="p">:</span>
        <span class="n">dr</span> <span class="o">=</span> <span class="p">(</span><span class="n">Rn</span><span class="o">*</span><span class="n">r</span><span class="o">/</span><span class="n">r0n</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">r</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">r0n</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">Rn</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">r</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
     <span class="k">else</span><span class="p">:</span>
-       <span class="n">dr</span> <span class="o">=</span> <span class="mi">0</span>   <span class="c1"># prevent division by zero at end of path (infinite slope)</span>
+       <span class="n">dr</span> <span class="o">=</span> <span class="mi">0</span>   <span class="c1"># prevent division by zero</span>
     <span class="k">return</span> <span class="n">dr</span>
 </pre></div>
 
@@ -13726,7 +13730,7 @@ durch Trennung der Variablen und Integration lösen. Weil sich dabei schwierige 
   </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Zahlenwerte für eine Beispielrechnung (Index n steht für numerisch, um von symbolischer Rechnung zu unterscheiden)</p>
+<p>The numerical values are indexed by <em>n</em> to distinguish them from the symbolic variables.</p>
 
 </div>
 </div>
@@ -13750,7 +13754,7 @@ durch Trennung der Variablen und Integration lösen. Weil sich dabei schwierige 
   </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Maximal möglicher Winkelbereich vom tiefsten Punkt $r=r_0$ zur Oberfläche $r=R$ (die zweite Hälfte folgt durch Spiegelung)</p>
+<p>The span of the independent variable (angle) is set to zero at $r=r_0$ as well as an upper bound of $\pi/2$ for the first half of the path. The second half of the path follows by symmetry.</p>
 
 </div>
 </div>
@@ -13774,7 +13778,7 @@ durch Trennung der Variablen und Integration lösen. Weil sich dabei schwierige 
   </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Numerische Lösung für verschiedene Tiefen</p>
+<p>Numerical solutions can now be obtained for different values of the lowest point of the path and plotted in a polar diagramme.</p>
 
 </div>
 </div>
@@ -13791,7 +13795,7 @@ durch Trennung der Variablen und Integration lösen. Weil sich dabei schwierige 
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;projection&#39;</span><span class="p">:</span> <span class="s1">&#39;polar&#39;</span><span class="p">},</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_rlabel_position</span><span class="p">(</span><span class="mi">180</span><span class="p">)</span> 
 <span class="k">for</span> <span class="n">r0n</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
-    <span class="n">initial_r</span> <span class="o">=</span> <span class="mf">1.001</span><span class="o">*</span><span class="n">r0n</span>  <span class="c1"># start slightly above r0, otherwise circle (r=r0) results, not reaching the surface</span>
+    <span class="n">initial_r</span> <span class="o">=</span> <span class="mf">1.001</span><span class="o">*</span><span class="n">r0n</span>  <span class="c1"># start slightly above r0, otherwise circle does not reach the surface</span>
     <span class="n">r_sol</span> <span class="o">=</span> <span class="n">odeint</span><span class="p">(</span><span class="n">tb_ode</span><span class="p">,</span> <span class="n">initial_r</span><span class="p">,</span> <span class="n">theta_grid</span><span class="p">)</span> 
     <span class="n">last</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">r_sol</span> <span class="o">&lt;</span> <span class="n">Rn</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># discard values after reaching the surface</span>
     <span class="n">r_real</span> <span class="o">=</span> <span class="n">r_sol</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">last</span><span class="p">]</span>
@@ -13827,14 +13831,21 @@ durch Trennung der Variablen und Integration lösen. Weil sich dabei schwierige 
   </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="&#220;berpr&#252;fen-der-vermuteten-L&#246;sung">&#220;berpr&#252;fen der vermuteten L&#246;sung<a class="anchor-link" href="#&#220;berpr&#252;fen-der-vermuteten-L&#246;sung">&#182;</a></h3><p><img src="https://github.com/nagelt/soil_dynamics/raw/master/Images/terrestrial_brachistochrone.svg" alt="terrestrial_brachistochrone.svg"></p>
+<p>The numerical results and the limit case of $R=\infty$ (classical brachistochrone) give rise to the assumption that the time-optimal path is given by a hypocycloid, the curve generated by a circle rolling inside another circle.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Die numerischen Ergebnisse und der Grenzfall der klassischen Brachistochrone $R=\infty$ legen die Vermutung nahe, dass eine Hypozykloide, das Abrollen eines kleinen Kreises mit Radius $a=\frac{R-r_0}{2}$ auf dem großen Kreis mit Radius $R$, die Lösung sein könnte. Das wollen wir durch symbolische Rechnung überprüfen.</p>
+<h3 id="Verification-of-the-guess">Verification of the guess<a class="anchor-link" href="#Verification-of-the-guess">&#182;</a></h3><p><img src="https://github.com/nagelt/soil_dynamics/raw/master/Images/terrestrial_brachistochrone.svg" alt="terrestrial_brachistochrone.svg"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let us check wether the hypocycloid of a circle of radius $a=\frac{R-r_0}{2}$ rolling inside the circle with radius $R$ satisfies the ODE for the optimal path.</p>
 
 </div>
 </div>
@@ -13858,7 +13869,7 @@ durch Trennung der Variablen und Integration lösen. Weil sich dabei schwierige 
   </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Den Zusammenhang zwischen $\psi$ und $\theta$ liefert die Kreisbahn und die gemeinsame Gegenkathete</p>
+<p>The dependency of $\theta$ on $\psi$ is given by the rolling condition $R\varphi=a\psi$, the common height (opposite $\psi$ and $\theta-\varphi$) of the triangle with sides $r$, $a$ and the line connecting the centerpoints.</p>
 
 </div>
 </div>
@@ -13904,7 +13915,7 @@ $\displaystyle \frac{\mathrm{d} \theta}{\mathrm{d} \psi}=\frac{r_{0} \left(R - r
   </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Nun sollen noch $\cos\psi$ und $\sin^2\psi$ durch $r$ ausgedrückt werden, dabei helfen der Kosinussatz und der trigonometrische Pythagoras</p>
+<p>To formulate $\cos\psi$ and $\sin^2\psi$ as functions of radial position $r$ we use the law of cosines</p>
 
 </div>
 </div>
@@ -13967,9 +13978,9 @@ $\displaystyle \frac{\mathrm{d} \theta}{\mathrm{d} \psi}=\frac{R r_{0}}{2 r^{2}}
   </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Intuitiv liegt es nahe den Kosinussatz
-$r^2 = (R-a)^2 + a^2 - 2(R-a)a\cos\psi$
-zu differenzieren, aber dann enthält die Ableitung $\frac{\mathrm{d}r}{\mathrm{d}\psi}$ den Term $\sin\psi$. Das ist ungünstig, weil nur $\cos\psi$ als Funktion von $r$ vorliegt (Kosinussatz). Insgesamt ist es einfacher von dem Halbwinkeltheorem $\tan\frac{\psi}{2}=\sqrt{\frac{1-\cos\psi}{1+\cos\psi}}$ auszugehen, darin den Kosinussatz auszuwerten und dann die Ableitung $\frac{\mathrm{d}\psi}{\mathrm{d}r}$ zu berechnen.</p>
+<p>One feels tempted to differentiate the law of cosines $r^2 = (R-a)^2 + a^2 - 2(R-a)a\cos\psi$
+to resolve for $\psi(r)$, however then $\sin\psi$ pops up, while we have $\cos\psi$ readily available.
+So we start from the tangent half-angle formula $\tan\frac{\psi}{2}=\sqrt{\frac{1-\cos\psi}{1+\cos\psi}}$ where we eliminate $\cos\psi$ by the law of cosines and then differentiate with respect to $r$.</p>
 
 </div>
 </div>
@@ -14015,7 +14026,8 @@ $\displaystyle \frac{\mathrm{d} \psi}{\mathrm{d} r}=\frac{2 r \sqrt{\frac{r^{2} 
   </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Den Ausdruck $r(\theta)$ aufzustellen ist schwierig, aber dessen gesuchte Ableitung erhalten wir durch die Kettenregel $\frac{\mathrm{d}r}{\mathrm{d}\theta} = \frac{\mathrm{d}r}{\mathrm{d}\psi} \frac{\mathrm{d}\psi}{\mathrm{d}\theta}$</p>
+<p>It seems hard to find $r(\theta)$, however to find its derivative we make take advantage of the chain rule 
+$\frac{\mathrm{d}r}{\mathrm{d}\theta} = \frac{\mathrm{d}r}{\mathrm{d}\psi} \frac{\mathrm{d}\psi}{\mathrm{d}\theta}$</p>
 
 </div>
 </div>
@@ -14059,7 +14071,7 @@ $\displaystyle \frac{\mathrm{d} r}{\mathrm{d} \theta}=\frac{R r \sqrt{\frac{r^{2
   </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Das ist genau die Extremalbedingung der Laufzeit, die vermutete Lösung erweist sich als korrekt.</p>
+<p>That is exactly the optimaly condition (forward), so our guess turns out correct.</p>
 
 </div>
 </div>

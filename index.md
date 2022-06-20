@@ -22,4 +22,6 @@ A lot of the content is in German, as the material is used in lectures at a Germ
 
 [Praxis: Erdbebenbemessungspektren](applications_elastic_response_spectrum.html)
 
-[Extra: terrestrische Brachistochrone](extra_terrestrial_brachistochrone.html)
+[Extra: terrestrische Brachistochrone (Deutsch)](extra_terrestrial_brachistochrone.html)
+
+[Extra: terrestrial brachistochrone (English)](extra_terrestrial_brachistochrone_en.html)
