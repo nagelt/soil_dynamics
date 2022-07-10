@@ -11,6 +11,10 @@ Material covers, among others, topics such as
 - wave propagation and dispersion
 - insights into selected applications and laboratory tests
 
+The notebooks can be viewed with nbviewer, see https://jupyter.org/, or can now also be run interactively using binder (available through nbviewer).
+
+See https://nagelt.github.io
+
 *Comments and contributions are welcome.*
 
 **Related publication:**
