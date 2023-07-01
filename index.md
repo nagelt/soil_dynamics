@@ -4,9 +4,11 @@ A lot of the content is in German, as the material is used in lectures at a Germ
 
 **Note:** I've transitioned from interactive ipynb pages created with nbinteract to a direct usage of mybinder. Starting any of the scripts may take a few minutes depending on when the last built took place.
 
-**Related publication:**
+**Related publications:**
 
 Kern, D., & Nagel, T. (2022). An experimental numerics approach to the terrestrial brachistochrone. GAMM Archive for Students, 4(1), 29–35. https://doi.org/10.14464/gammas.v4i1.512
+
+Kühne, A. (2023). Damping-induced dispersion in simple waveguides. GAMM Archive for Students, 5(1). https://doi.org/10.14464/gammas.v5i1.587
 
 
 **All scripts**
