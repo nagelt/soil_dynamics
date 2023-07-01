@@ -19,4 +19,6 @@ See https://nagelt.github.io
 
 **Related publication:**
 
-Kern, D., & Nagel, T. (2022). An experimental numerics approach to the terrestrial brachistochrone. GAMM Archive for Students, 4(1), 29–35. https://doi.org/10.14464/gammas.v4i1.512
+Kern, D., & Nagel, T. (2022). An experimental numerics approach to the terrestrial brachistochrone. GAMM Archive for Students, 4(1). https://doi.org/10.14464/gammas.v4i1.512
+
+Kühne, A. (2023). Damping-induced dispersion in simple waveguides. GAMM Archive for Students, 5(1). https://doi.org/10.14464/gammas.v5i1.587
