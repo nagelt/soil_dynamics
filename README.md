@@ -41,6 +41,8 @@ If one of the specific scripts is of interest, you can launch them individually 
 
 [Praxis: Erdbebenbemessungspektren](https://mybinder.org/v2/gh/nagelt/soil_dynamics/HEAD?labpath=applications_elastic_response_spectrum.ipynb)
 
+[Extra: Komplexe Analyse von Torsionsschwingern / Viskoelastizität](https://mybinder.org/v2/gh/nagelt/soil_dynamics/HEAD?labpath=shear_oscillator.ipynb)
+
 [Extra: terrestrische Brachistochrone (Deutsch)](https://mybinder.org/v2/gh/nagelt/soil_dynamics/HEAD?labpath=extra_terrestrial_brachistochrone.ipynb)
 
 [Extra: terrestrial brachistochrone (English)](https://mybinder.org/v2/gh/nagelt/soil_dynamics/HEAD?labpath=extra_terrestrial_brachistochrone_en.ipynb)
