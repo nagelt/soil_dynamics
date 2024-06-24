@@ -10,6 +10,8 @@ Kern, D., & Nagel, T. (2022). An experimental numerics approach to the terrestri
 
 Kühne, A. (2023). Damping-induced dispersion in simple waveguides. GAMM Archive for Students, 5(1). https://doi.org/10.14464/gammas.v5i1.587
 
+Kern, D., & Nagel, T. (2024). The essence of Biot waves in an oscillator with two degrees of freedom. GAMM Archive for Students, 6(1). https://doi.org/10.14464/gammas.v6i1.663
+
 
 **All scripts**
 
