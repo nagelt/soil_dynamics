@@ -23,28 +23,28 @@ If you want to work with several scripts, launch the entire repository on mybind
 If one of the specific scripts is of interest, you can launch them individually via the links below.
 
 
-[Grundlagen: Einmassenschwinger](https://mybinder.org/v2/gh/nagelt/soil_dynamics/HEAD?labpath=basics_single_mass_oscillator.ipynb)
+[Grundlagen: Einmassenschwinger](https://nbviewer.org/github/nagelt/soil_dynamics/blob/HEAD/basics_single_mass_oscillator.ipynb)
 
-[Grundlagen: Frequenzanalyse](https://mybinder.org/v2/gh/nagelt/soil_dynamics/HEAD?labpath=basics_frequency_analysis.ipynb)
+[Grundlagen: Frequenzanalyse](https://nbviewer.org/github/nagelt/soil_dynamics/blob/HEAD/basics_frequency_analysis.ipynb)
 
-[Grundlagen: einfache Materialmodelle für zyklische Belastung](https://mybinder.org/v2/gh/nagelt/soil_dynamics/HEAD?labpath=basics_soil_model.ipynb)
+[Grundlagen: einfache Materialmodelle für zyklische Belastung](https://nbviewer.org/github/nagelt/soil_dynamics/blob/HEAD/basics_soil_model.ipynb)
 
-[Wellenausbreitung 1D: diskrete Kraftelemente](https://mybinder.org/v2/gh/nagelt/soil_dynamics/HEAD?labpath=wave1d_discrete_elements.ipynb)
+[Wellenausbreitung 1D: diskrete Kraftelemente](https://nbviewer.org/github/nagelt/soil_dynamics/blob/HEAD/wave1d_discrete_elements.ipynb)
 
-[Wellenausbreitung 1D: Dispersion](https://mybinder.org/v2/gh/nagelt/soil_dynamics/HEAD?labpath=wave1d_dispersion.ipynb)
+[Wellenausbreitung 1D: Dispersion](https://nbviewer.org/github/nagelt/soil_dynamics/blob/HEAD/wave1d_dispersion.ipynb)
 
-[Wellenausbreitung 1D: Pfahlgruendung](https://mybinder.org/v2/gh/nagelt/soil_dynamics/HEAD?labpath=wave1d_pile.ipynb)
+[Wellenausbreitung 1D: Pfahlgruendung](https://nbviewer.org/github/nagelt/soil_dynamics/blob/HEAD/wave1d_pile.ipynb)
 
-[Wellenausbreitung 1D: stehende Wellen](https://mybinder.org/v2/gh/nagelt/soil_dynamics/HEAD?labpath=wave1d_resonant_column.ipynb)
+[Wellenausbreitung 1D: stehende Wellen](https://nbviewer.org/github/nagelt/soil_dynamics/blob/HEAD/wave1d_resonant_column.ipynb)
 
-[Wellenausbreitung 1D: einfaches Erdbebenmodell](https://mybinder.org/v2/gh/nagelt/soil_dynamics/HEAD?labpath=wave1d_earthquake.ipynb)
+[Wellenausbreitung 1D: einfaches Erdbebenmodell](https://nbviewer.org/github/nagelt/soil_dynamics/blob/HEAD/wave1d_earthquake.ipynb)
 
-[Wellenausbreitung 3D: Reflexion](https://mybinder.org/v2/gh/nagelt/soil_dynamics/HEAD?labpath=wave3d_reflection.ipynb)
+[Wellenausbreitung 3D: Reflexion](https://nbviewer.org/github/nagelt/soil_dynamics/blob/HEAD/wave3d_reflection.ipynb)
 
-[Praxis: Erdbebenbemessungspektren](https://mybinder.org/v2/gh/nagelt/soil_dynamics/HEAD?labpath=applications_elastic_response_spectrum.ipynb)
+[Praxis: Erdbebenbemessungspektren](https://nbviewer.org/github/nagelt/soil_dynamics/blob/HEAD/applications_elastic_response_spectrum.ipynb)
 
-[Extra: Komplexe Analyse von Torsionsschwingern / Viskoelastizität](https://mybinder.org/v2/gh/nagelt/soil_dynamics/HEAD?labpath=shear_oscillator.ipynb)
+[Extra: Komplexe Analyse von Torsionsschwingern / Viskoelastizität](https://nbviewer.org/github/nagelt/soil_dynamics/blob/HEAD/shear_oscillator.ipynb)
 
-[Extra: terrestrische Brachistochrone (Deutsch)](https://mybinder.org/v2/gh/nagelt/soil_dynamics/HEAD?labpath=extra_terrestrial_brachistochrone.ipynb)
+[Extra: terrestrische Brachistochrone (Deutsch)](https://nbviewer.org/github/nagelt/soil_dynamics/blob/HEAD/extra_terrestrial_brachistochrone.ipynb)
 
-[Extra: terrestrial brachistochrone (English)](https://mybinder.org/v2/gh/nagelt/soil_dynamics/HEAD?labpath=extra_terrestrial_brachistochrone_en.ipynb)
+[Extra: terrestrial brachistochrone (English)](https://nbviewer.org/github/nagelt/soil_dynamics/blob/HEAD/extra_terrestrial_brachistochrone_en.ipynb)
